@@ -2,6 +2,10 @@ package game;
 
 import java.awt.Graphics;
 
+import encounter.Encounter;
+import encounter.Solution;
+import world.World;
+
 /**
  * Manages the game loop and initialisation of the game
  * 
@@ -24,6 +28,8 @@ public class Game
 
 	public static final int WIDTH = 640;
 
+	static Encounter encounter;
+
 	private enum GameState
 	{
 		RUNNING, STOPED;
@@ -35,6 +41,24 @@ public class Game
 		run(1 / FPS);
 	}
 
+	// test class
+	static class testSolution implements Solution
+	{
+
+		@Override
+		public String[] resolve(World w)
+		{
+			return new String[]{"TEST1","TEST2"};
+		}
+
+		@Override
+		public String getText()
+		{
+			return "Ayy Lmao";
+		}
+
+	}
+
 	/**
 	 * Initialises all required variables and Objects to run the game
 	 */
@@ -44,6 +68,11 @@ public class Game
 		display = new Display(WIDTH, HEIGHT);
 		state = GameState.RUNNING;
 		InputManager.addButton(button);
+
+		// these are for testing
+		encounter = new Encounter(new World(null, 0), "This is a test foar encounters", new Solution[]{new testSolution(), new testSolution()});
+		encounter.startEncounter();
+
 	}
 
 	/**
@@ -113,24 +142,28 @@ public class Game
 	 * Renders the game in 60 FPS
 	 */
 
-	static class exitButton implements ButtonCall{
+	static class exitButton implements ButtonCall
+	{
 
-        @Override
-        public void call() {
-            System.out.print("Test");
-            System.exit(0);
-        }
-    }
+		@Override
+		public void call()
+		{
+			System.out.print("Test");
+			System.exit(0);
+		}
+	}
 
-    static Button button=new Button(200, 200, 100, 100, "Herro", new exitButton());
-    
-    static TextBox box = new TextBox(0, 0, 200, 100, "Hello this is a test for my textbox");
+	static Button button = new Button(200, 200, 100, 100, "Herro", new exitButton());
+
+	static TextBox box = new TextBox(0, 0, 200, 100, "Hello this is a test for my textbox");
 
 	private static void render()
 	{
 		g = display.getBackBuffer();
-		button.draw(g);
-		box.draw(g);
+
+		encounter.draw(g);
+		// button.draw(g);
+		// box.draw(g);
 		display.flipBuffers();
 		// TODO render player(ship n stuff),world etc.
 	}

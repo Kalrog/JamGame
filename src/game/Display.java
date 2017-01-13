@@ -8,7 +8,7 @@ import java.awt.*;
  */
 public class Display extends JFrame {
 
-    private Canvas canvas;
+    public static Canvas canvas;
 
     /**
      * Constructs a Display
@@ -29,8 +29,9 @@ public class Display extends JFrame {
         canvas.addKeyListener(InputManager.getInstance());
         addWindowListener(InputManager.getInstance());
         setVisible(true);
+        setResizable(false);
         canvas.createBufferStrategy(2);
-        //pack();
+        pack();
         setIgnoreRepaint(true);
 
     }
