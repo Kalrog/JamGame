@@ -161,11 +161,13 @@ public class Game
 	private static void render()
 	{
 		g = display.getBackBuffer();
-
+		g.clearRect(0, 0, WIDTH, HEIGHT);
 		encounter.draw(g);
 		// button.draw(g);
 		// box.draw(g);
 		display.flipBuffers();
 		// TODO render player(ship n stuff),world etc.
+		
+		
 	}
 }

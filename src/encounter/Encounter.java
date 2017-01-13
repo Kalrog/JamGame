@@ -171,6 +171,7 @@ public class Encounter
 	public void endEncounter()
 	{
 		this.state = State.INACTIVE;
+		InputManager.removeButton(buttons[0]);
 	}
 
 	public void draw(Graphics g)
