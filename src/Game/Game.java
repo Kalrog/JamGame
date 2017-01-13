@@ -13,17 +13,16 @@ public class Game
 	public static Display display;
 
 	public static GameState state;
-	
+
 	private static Graphics g;
 
 	public static boolean running;
-	
+
 	public static final int FPS = 60;
-	
+
 	public static final int HEIGHT = 480;
-	
+
 	public static final int WIDTH = 640;
-	
 
 	private enum GameState
 	{
@@ -33,7 +32,7 @@ public class Game
 	public static void main(String[] args)
 	{
 		init();
-		run(1/FPS);
+		run(1 / FPS);
 	}
 
 	/**
@@ -88,20 +87,22 @@ public class Game
 		shutdown();
 	}
 
-	public static void prepareShutdown(){
-	    running = false;
-    }
+	public static void prepareShutdown()
+	{
+		running = false;
+	}
 
 	private static void shutdown()
 	{
 		// TODO Close Display etc.
-        display.dispose();
-        System.exit(0);
+		display.dispose();
+		System.exit(0);
 	}
 
 	/**
 	 * Updates all values in the game;
-	 * @param delta 
+	 * 
+	 * @param delta
 	 */
 	private static void update(double delta)
 	{
@@ -114,7 +115,7 @@ public class Game
 	private static void render()
 	{
 		g = display.getBackBuffer();
-		Button button=new Button(0, 0, 100, 100, "Herro", null);
+		Button button = new Button((Game.WIDTH / 2) - 50, (Game.HEIGHT / 2) - 50, 100, 100, "Herro", null);
 		button.draw(g);
 		display.flipBuffers();
 		// TODO render player(ship n stuff),world etc.

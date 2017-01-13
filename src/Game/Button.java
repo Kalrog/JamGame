@@ -39,7 +39,7 @@ public class Button
 		g.setColor(Color.ORANGE);
 		g.fillRect(rect.x, rect.y, rect.width, rect.height);
 		g.setColor(Color.BLACK);
-		g.drawString(text, rect.width / 2, rect.height / 2);
+		g.drawString(text, rect.x + ((rect.width - g.getFontMetrics().stringWidth(text)) / 2),rect.y + rect.height / 2);
 	}
 
 }

@@ -62,7 +62,7 @@ public class InputManager implements MouseInputListener, KeyListener, WindowList
 
 		for (Button button : buttons)
 		{
-			if (button.clicked(mouseEvent.getX(), mouseEvent.getY())) break;
+			if (button.clicked(mouseEvent.getX(), mouseEvent.getY()))  break;
 		}
 
 	}
