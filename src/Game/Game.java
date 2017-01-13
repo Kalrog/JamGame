@@ -1,5 +1,7 @@
 package Game;
 
+import java.awt.Graphics;
+
 /**
  * Manages the game loop and initialisation of the game
  * 
@@ -11,6 +13,8 @@ public class Game
 	public static Display display;
 
 	public static GameState state;
+	
+	private static Graphics g;
 
 	public static boolean running;
 	
@@ -109,6 +113,10 @@ public class Game
 	 */
 	private static void render()
 	{
+		g = display.getBackBuffer();
+		Button button=new Button(0, 0, 100, 100, "Herro", null);
+		button.draw(g);
+		display.flipBuffers();
 		// TODO render player(ship n stuff),world etc.
 	}
 }

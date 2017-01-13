@@ -60,6 +60,11 @@ public class InputManager implements MouseInputListener, KeyListener, WindowList
 	public void mouseClicked(MouseEvent mouseEvent)
 	{
 
+		for (Button button : buttons)
+		{
+			if (button.clicked(mouseEvent.getX(), mouseEvent.getY())) break;
+		}
+
 	}
 
 	@Override
