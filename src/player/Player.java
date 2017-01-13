@@ -10,11 +10,8 @@ public class Player
 
 	String	name;
 
-	int		moral, food, skill, health;
+	public int money , moral, food, skill, health , distance;
 
-	public int distance;
-
-	int money;
 
 	/**
 	 * Creates a player and sets some values

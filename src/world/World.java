@@ -10,7 +10,7 @@ import player.Player;
  */
 public class World
 {
-	Player player;
+	public Player player;
 
 	int difficulty;
 
