@@ -1,7 +1,7 @@
-package Player;
+package player;
 
 /**
- * Manages Player stats like health or skill
+ * Manages player stats like health or skill
  * 
  * Created by jonathan on 13.01.17.
  */
@@ -16,7 +16,7 @@ public class Player
 	 * Creates a player and sets some values
 	 * 
 	 * @param name
-	 *            Name of the Player;
+	 *            Name of the player;
 	 */
 	public Player(String name)
 	{

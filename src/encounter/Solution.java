@@ -1,6 +1,6 @@
-package Encounter;
+package encounter;
 
-import World.World;
+import world.World;
 
 /**
  * Base for all solutions to an encounter

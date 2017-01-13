@@ -1,4 +1,4 @@
-package Game;
+package game;
 
 import javax.swing.event.MouseInputListener;
 import java.awt.event.*;

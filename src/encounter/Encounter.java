@@ -1,11 +1,11 @@
-package Encounter;
+package encounter;
 
 import java.awt.Color;
 import java.awt.Graphics;
 
-import Game.Game;
-import Game.ButtonCall;
-import World.World;
+import game.Game;
+import game.ButtonCall;
+import world.World;
 
 /**
  * Created by jonathan on 13.01.17.
@@ -43,6 +43,7 @@ public class Encounter
 		g.setColor(Color.CYAN);
 		g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
 	}
+
 
 	public void draw(){
 

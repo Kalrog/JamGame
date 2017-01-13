@@ -1,9 +1,7 @@
-package Game;
+package game;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseListener;
-import java.awt.event.WindowListener;
 
 /**
  * Created by jonathan on 13.01.17.

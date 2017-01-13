@@ -1,4 +1,4 @@
-package Assets;
+package assets;
 
 /**
  * Manages Loading of assets
