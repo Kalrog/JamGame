@@ -15,6 +15,11 @@ public class Game
 	public static boolean running;
 	
 	public static final int FPS = 60;
+	
+	public static final int HEIGHT = 480;
+	
+	public static final int WIDTH = 640;
+	
 
 	private enum GameState
 	{
@@ -33,7 +38,7 @@ public class Game
 	private static void init()
 	{
 		running = true;
-		display = new Display();
+		display = new Display(WIDTH, HEIGHT);
 		state = GameState.RUNNING;
 
 	}
@@ -81,7 +86,7 @@ public class Game
 
 	private static void shutdown()
 	{
-		// TODO Close Display et%c.
+		// TODO Close Display etc.
 
 	}
 
