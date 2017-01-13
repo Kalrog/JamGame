@@ -45,7 +45,6 @@ public class InputManager implements MouseInputListener, KeyListener, WindowList
 	@Override
 	public void keyTyped(KeyEvent keyEvent)
 	{
-	    System.out.print(keyEvent.getKeyChar());
 	}
 
 	@Override
