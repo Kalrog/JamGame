@@ -58,6 +58,8 @@ public class Game
 		}
 
 	}
+	
+	//end of texst class
 
 	/**
 	 * Initialises all required variables and Objects to run the game
@@ -71,7 +73,7 @@ public class Game
 
 		// these are for testing
 		encounter = new Encounter(new World(null, 0), "This is a test foar encounters",
-				new Solution[] { new testSolution(), new testSolution() });
+				new Solution[] { new testSolution(), new testSolution(), new testSolution(), new testSolution(), new testSolution(), new testSolution()});
 		encounter.startEncounter();
 
 	}
