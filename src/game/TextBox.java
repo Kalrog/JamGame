@@ -7,10 +7,13 @@ import java.awt.Rectangle;
 
 public class TextBox
 {
+	private final int NEXT_LINE = 5;
 
 	public Rectangle rect;
 
 	String text;
+
+	String[] textlines;
 
 	public TextBox(int posx, int posy, int width, int height, String text)
 	{
@@ -26,8 +29,14 @@ public class TextBox
 		g.fillRect(rect.x, rect.y, rect.width, rect.height);
 		g.setColor(Color.BLACK);
 		g.drawRect(rect.x, rect.y, rect.width, rect.height);
-		//TODO Split lines at /n and draw
-		g.drawString(text, rect.x + 10, rect.y + rect.height / 2);
+		textlines = text.split("/n");
+		// TODO Split lines at /n and draw
+		// g.drawString(text, rect.x + 10, rect.y + rect.height / 2);
+		for (int x = 0; x < textlines.length; x++)
+		{
+			g.drawString(textlines[x], rect.x + 10,
+					rect.y + 20 + x * NEXT_LINE + (x == 0 ? 0 :x * g.getFontMetrics().getHeight()));
+		}
 
 	}
 }
