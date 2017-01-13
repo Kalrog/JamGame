@@ -100,18 +100,25 @@ public class Encounter
 
 		texts = new TextBox[1];
 
-		for (int x = 0; x < solutions.length; x++)
-		{
-			buttons[x] = new Button(BUTTON_X, BUTTON_Y + x * BOX_DIFF, BUTTON_WIDTH, BUTTON_HEIGHT,
-					solutions[x].getText(), new SolutionButton(solutions[x]));
+			if (solutions.length <= 3)
+				for (int x = 0; x < solutions.length; x++)
+				{
+				buttons[x] = new Button(BUTTON_X, BUTTON_Y + x * BOX_DIFF, BUTTON_WIDTH, BUTTON_HEIGHT,
+						solutions[x].getText(), new SolutionButton(solutions[x]));
+				}
+			else if (solutions.length <= 5)
+				buttons = fourSmallButtons(solutions);
+			else if (solutions.length <= 7) 
+				buttons = sixSmallButtons(solutions);
+
+			for (int x = 0; x < solutions.length; x++)
 			InputManager.addButton(buttons[x]);
-		}
 
 		texts[0] = new TextBox(TEXT_X, TEXT_Y, TEXT_WIDTH, TEXT_HEIGHT, text);
 
 	}
 
-	public void showResult(String[] results)
+	private void showResult(String[] results)
 	{
 		this.state = State.RESULT;
 
@@ -122,40 +129,7 @@ public class Encounter
 			InputManager.removeButton(button);
 		}
 
-		for (int x = 0; x < results.length; x++)
-		{
-			switch (x)
-			{
-				case 0:
-				{
-					texts[x] = new TextBox(TEXT_X, TEXT_Y, TEXT_WIDTH, TEXT_HEIGHT, results[x]);
-					break;
-				}
-				case 1:
-				{
-					texts[x] = makeStandartSmallBox(BUTTON_X, BUTTON_Y, texts[x], results[x]);
-					break;
-				}
-				case 2:
-				{
-					texts[x] = makeStandartSmallBox(BUTTON_X + BUTTON_WIDTH / 2 + BOX_DIFF / 4, BUTTON_Y, texts[x],
-							results[x]);
-					break;
-				}
-				case 3:
-				{
-					texts[x] = makeStandartSmallBox(BUTTON_X, BUTTON_Y + BOX_DIFF, texts[x], results[x]);
-					break;
-				}
-				case 4:
-				{
-					texts[x] = makeStandartSmallBox(BUTTON_X + BUTTON_WIDTH / 2 + BOX_DIFF / 4, BUTTON_Y + BOX_DIFF,
-							texts[x], results[x]);
-					break;
-				}
-			}
-
-		}
+		texts = fourSmallBoxes(results);
 
 		buttons = new Button[] { new Button(BUTTON_X, BUTTON_Y + 2 * BOX_DIFF, BUTTON_WIDTH, BUTTON_HEIGHT, "Continue",
 				new ContiniueButton()) };
@@ -163,12 +137,18 @@ public class Encounter
 		InputManager.addButton(buttons[0]);
 	}
 
-	public TextBox makeStandartSmallBox(int x, int y, TextBox box, String text)
+	private TextBox makeStandartSmallBox(int x, int y, TextBox box, String text)
 	{
 		return box = new TextBox(x, y, BUTTON_WIDTH / 2 - BOX_DIFF / 4, BUTTON_HEIGHT, text);
 	}
 
-	public void endEncounter()
+	private Button makeStandartSmallButton(int x, int y, Button button, Solution solution)
+	{
+		return button = new Button(x, y, BUTTON_WIDTH / 2 - BOX_DIFF / 4, BUTTON_HEIGHT, solution.getText(),
+				new SolutionButton(solution));
+	}
+
+	private void endEncounter()
 	{
 		this.state = State.INACTIVE;
 		InputManager.removeButton(buttons[0]);
@@ -220,9 +200,137 @@ public class Encounter
 		}
 	}
 
-	public void mainBoxDraw(Graphics g)
+	private void mainBoxDraw(Graphics g)
 	{
 		g.setColor(Color.GRAY);
 		g.fillRect(MAINBOX_X, MAINBOX_Y, MAINBOX_WIDTH, MAINBOX_HEIGHT);
+	}
+
+	private TextBox[] fourSmallBoxes(String[] strings)
+	{
+		TextBox[] texts = new TextBox[strings.length];
+
+		for (int x = 0; x < strings.length; x++)
+		{
+			switch (x)
+			{
+				case 0:
+				{
+					texts[x] = new TextBox(TEXT_X, TEXT_Y, TEXT_WIDTH, TEXT_HEIGHT, strings[x]);
+					break;
+				}
+				case 1:
+				{
+					texts[x] = makeStandartSmallBox(BUTTON_X, BUTTON_Y, texts[x], strings[x]);
+					break;
+				}
+				case 2:
+				{
+					texts[x] = makeStandartSmallBox(BUTTON_X + BUTTON_WIDTH / 2 + BOX_DIFF / 4, BUTTON_Y, texts[x],
+							strings[x]);
+					break;
+				}
+				case 3:
+				{
+					texts[x] = makeStandartSmallBox(BUTTON_X, BUTTON_Y + BOX_DIFF, texts[x], strings[x]);
+					break;
+				}
+				case 4:
+				{
+					texts[x] = makeStandartSmallBox(BUTTON_X + BUTTON_WIDTH / 2 + BOX_DIFF / 4, BUTTON_Y + BOX_DIFF,
+							texts[x], strings[x]);
+					break;
+				}
+			}
+
+		}
+
+		return texts;
+	}
+
+	private Button[] fourSmallButtons(Solution[] solutions)
+	{
+		Button[] buttons = new Button[solutions.length];
+
+		for (int x = 0; x < solutions.length; x++)
+		{
+			switch (x)
+			{
+				case 0:
+				{
+					buttons[x] = makeStandartSmallButton(BUTTON_X, BUTTON_Y, buttons[x], solutions[x]);
+					break;
+				}
+				case 1:
+				{
+					buttons[x] = makeStandartSmallButton(BUTTON_X + BUTTON_WIDTH / 2 + BOX_DIFF / 4, BUTTON_Y,
+							buttons[x], solutions[x]);
+					break;
+				}
+				case 2:
+				{
+					buttons[x] = makeStandartSmallButton(BUTTON_X, BUTTON_Y + BOX_DIFF, buttons[x], solutions[x]);
+					break;
+				}
+				case 3:
+				{
+					buttons[x] = makeStandartSmallButton(BUTTON_X + BUTTON_WIDTH / 2 + BOX_DIFF / 4,
+							BUTTON_Y + BOX_DIFF, buttons[x], solutions[x]);
+					break;
+				}
+
+			}
+
+		}
+
+		return buttons;
+	}
+
+	private Button[] sixSmallButtons(Solution[] solutions)
+	{
+		Button[] buttons = new Button[solutions.length];
+
+		for (int x = 0; x < solutions.length; x++)
+		{
+			switch (x)
+			{
+				case 0:
+				{
+					buttons[x] = makeStandartSmallButton(BUTTON_X, BUTTON_Y, buttons[x], solutions[x]);
+					break;
+				}
+				case 1:
+				{
+					buttons[x] = makeStandartSmallButton(BUTTON_X + BUTTON_WIDTH / 2 + BOX_DIFF / 4, BUTTON_Y,
+							buttons[x], solutions[x]);
+					break;
+				}
+				case 2:
+				{
+					buttons[x] = makeStandartSmallButton(BUTTON_X, BUTTON_Y + BOX_DIFF, buttons[x], solutions[x]);
+					break;
+				}
+				case 3:
+				{
+					buttons[x] = makeStandartSmallButton(BUTTON_X + BUTTON_WIDTH / 2 + BOX_DIFF / 4,
+							BUTTON_Y + BOX_DIFF, buttons[x], solutions[x]);
+					break;
+				}
+				case 4:
+				{
+					buttons[x] = makeStandartSmallButton(BUTTON_X, BUTTON_Y + 2 * BOX_DIFF, buttons[x], solutions[x]);
+					break;
+				}
+				case 5:
+				{
+					buttons[x] = makeStandartSmallButton(BUTTON_X + BUTTON_WIDTH / 2 + BOX_DIFF / 4,
+							BUTTON_Y + 2 * BOX_DIFF, buttons[x], solutions[x]);
+					break;
+				}
+			}
+
+		}
+
+		return buttons;
 	}
 }
