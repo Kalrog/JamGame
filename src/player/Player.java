@@ -12,6 +12,10 @@ public class Player
 
 	int		moral, food, skill, health;
 
+	public int distance;
+
+	int money;
+
 	/**
 	 * Creates a player and sets some values
 	 * 
@@ -22,6 +26,8 @@ public class Player
 	{
 		health = 100;
 		moral = 50;
+		money = 100;
+		distance = 0;
 		food = 20;// <==filler :: not clear what units to use yet
 		this.name = name;
 
