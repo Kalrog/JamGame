@@ -122,12 +122,15 @@ public class Game
         }
     }
 
-    static Button button=new Button(0, 0, 100, 100, "Herro", new exitButton());
+    static Button button=new Button(200, 200, 100, 100, "Herro", new exitButton());
+    
+    static TextBox box = new TextBox(0, 0, "Hello this is a test for my textbox");
 
 	private static void render()
 	{
 		g = display.getBackBuffer();
 		button.draw(g);
+		box.draw(g);
 		display.flipBuffers();
 		// TODO render player(ship n stuff),world etc.
 	}
