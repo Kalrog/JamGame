@@ -67,7 +67,7 @@ public class Game
 		running = true;
 		display = new Display(WIDTH, HEIGHT);
 		state = GameState.RUNNING;
-		InputManager.addButton(button);
+		//InputManager.addButton(button);
 
 		// these are for testing
 		encounter = new Encounter(new World(null, 0), "This is a test foar encounters", new Solution[]{new testSolution(), new testSolution()});

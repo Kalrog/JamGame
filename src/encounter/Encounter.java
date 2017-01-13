@@ -3,11 +3,7 @@ package encounter;
 import java.awt.Color;
 import java.awt.Graphics;
 
-import game.Button;
-import game.ButtonCall;
-import game.Display;
-import game.Game;
-import game.TextBox;
+import game.*;
 import world.World;
 
 /**
@@ -98,6 +94,7 @@ public class Encounter
 		{
 			buttons[x] = new Button(BUTTON_X, BUTTON_Y + x * BOX_DIFF, BUTTON_WIDTH, BUTTON_HEIGHT,
 					solutions[x].getText(), new solutionButton(solutions[x]));
+            InputManager.addButton(buttons[x]);
 		}
 
 		texts[0] = new TextBox(TEXT_X, TEXT_Y, TEXT_WIDTH, TEXT_HEIGHT, text);
@@ -106,6 +103,9 @@ public class Encounter
 
 	public void showResult(String[] result)
 	{
+	    for(Button button : buttons){
+	        InputManager.removeButton(button);
+        }
 		this.results = result;
 		this.state = State.RESULT;
 	}
