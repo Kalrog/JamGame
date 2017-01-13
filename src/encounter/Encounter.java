@@ -18,11 +18,15 @@ public class Encounter
 
 	Solution[] solutions;
 
+	public int chance;
+
 	class solutionButton implements ButtonCall{
         private Solution solution;
+        private Encounter encounter;
 
-        public solutionButton(Solution solution){
+        public solutionButton(Solution solution,Encounter encounter){
             this.solution = solution;
+            this.encounter = encounter;
         }
 
         @Override
@@ -38,14 +42,22 @@ public class Encounter
 	    this.solutions = solutions;
 	}
 
-	public void startEncouner(Graphics g)
+	public void startEncounter()
 	{
-		g.setColor(Color.CYAN);
-		g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
 	}
 
+	public void showResult()
+    {
+    }
 
-	public void draw(){
+    public void endEncounter()
+    {
+
+    }
+
+
+	public void draw()
+    {
 
 	}
 }
