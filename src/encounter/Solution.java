@@ -10,7 +10,7 @@ import world.World;
 public interface Solution
 {
 
-	public void resolve(World w);
+	public String [] resolve(World w);
 
 	public String getText();
 }

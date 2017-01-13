@@ -3,8 +3,10 @@ package encounter;
 import java.awt.Color;
 import java.awt.Graphics;
 
+import game.Button;
 import game.Game;
 import game.ButtonCall;
+import game.TextBox;
 import world.World;
 
 /**
@@ -12,11 +14,17 @@ import world.World;
  */
 public class Encounter
 {
-    World world;
+    private World world;
 
-	String text;
+	private String text;
 
-	Solution[] solutions;
+	private Solution[] solutions;
+
+    private String[] results;
+
+    private Button[] buttons;
+
+    private TextBox[] texts;
 
 	public int chance;
 
@@ -31,7 +39,7 @@ public class Encounter
 
         @Override
         public void call() {
-            solution.resolve(world);
+            showResult(solution.resolve(world));
         }
     }
 
@@ -46,8 +54,9 @@ public class Encounter
 	{
 	}
 
-	public void showResult()
+	public void showResult(String[] result)
     {
+        this.results = result;
     }
 
     public void endEncounter()
