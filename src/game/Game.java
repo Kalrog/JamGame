@@ -2,11 +2,12 @@ package game;
 
 import java.awt.Graphics;
 
+import assets.SoundPlayer;
 import encounter.Encounter;
 import encounter.PirateEncounter;
 import encounter.Solution;
-import world.World;
 import player.Player;
+import world.World;
 
 /**
  * Manages the game loop and initialisation of the game
@@ -16,7 +17,7 @@ import player.Player;
 public class Game
 {
 
-    public static final String NEW_LINE = System.lineSeparator();
+	public static final String NEW_LINE = System.lineSeparator();
 
 	public static Display display;
 
@@ -67,7 +68,7 @@ public class Game
 
 	}
 
-	//end of texst class
+	// end of texst class
 
 	/**
 	 * Initialises all required variables and Objects to run the game
@@ -78,14 +79,16 @@ public class Game
 		display = new Display(WIDTH, HEIGHT);
 		state = GameState.RUNNING;
 		player = new Player("Kalrog");
-		world = new World(player,1);
+		world = new World(player, 1);
 		// InputManager.addButton(button);
 
 		// these are for testing
-		/*encounter = new Encounter(new World(null, 0), "This is a test foar encounters",
-		*		new Solution[] { new testSolution(), new testSolution() });
-		*/
-		encounter = new PirateEncounter(world,30);
+		/*
+		 * encounter = new Encounter(new World(null, 0),
+		 * "This is a test foar encounters", new Solution[] { new
+		 * testSolution(), new testSolution() });
+		 */
+		encounter = new PirateEncounter(world, 30);
 		encounter.startEncounter();
 
 	}
@@ -171,9 +174,10 @@ public class Game
 	static Button button = new Button(200, 200, 100, 100, "Herro", new exitButton());
 
 	static TextBox box = new TextBox(0, 0, 200, 100, "Hello this is a test for my textbox");
-
+	
 	private static void render()
 	{
+
 		g = display.getBackBuffer();
 		g.clearRect(0, 0, WIDTH, HEIGHT);
 		encounter.draw(g);
@@ -181,7 +185,6 @@ public class Game
 		// box.draw(g);
 		display.flipBuffers();
 		// TODO render player(ship n stuff),world etc.
-		
-		
+
 	}
 }
