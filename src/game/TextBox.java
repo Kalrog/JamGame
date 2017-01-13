@@ -8,7 +8,7 @@ import java.awt.Rectangle;
 public class TextBox
 {
 
-	Rectangle rect;
+	public Rectangle rect;
 
 	String text;
 

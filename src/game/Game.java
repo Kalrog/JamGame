@@ -48,7 +48,7 @@ public class Game
 		@Override
 		public String[] resolve(World w)
 		{
-			return new String[]{"TEST1","TEST2"};
+			return new String[] { "Flavor", "TEST1", "REKT2", "NOW3", "AND4" };
 		}
 
 		@Override
@@ -67,10 +67,11 @@ public class Game
 		running = true;
 		display = new Display(WIDTH, HEIGHT);
 		state = GameState.RUNNING;
-		//InputManager.addButton(button);
+		// InputManager.addButton(button);
 
 		// these are for testing
-		encounter = new Encounter(new World(null, 0), "This is a test foar encounters", new Solution[]{new testSolution(), new testSolution()});
+		encounter = new Encounter(new World(null, 0), "This is a test foar encounters",
+				new Solution[] { new testSolution(), new testSolution() });
 		encounter.startEncounter();
 
 	}

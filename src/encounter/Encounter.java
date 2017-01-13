@@ -35,15 +35,13 @@ public class Encounter
 
 	private final int BUTTON_HEIGHT = 50;
 
-	private final int BOX_DIFF = BUTTON_HEIGHT + 17;
+	private final int BOX_DIFF = BUTTON_HEIGHT + 16;
 
 	private World world;
 
 	private String text;
 
 	private Solution[] solutions;
-
-	private String[] results;
 
 	private Button[] buttons;
 
@@ -58,11 +56,11 @@ public class Encounter
 		STARTED, RESULT, INACTIVE
 	}
 
-	class solutionButton implements ButtonCall
+	class SolutionButton implements ButtonCall
 	{
 		private Solution solution;
 
-		public solutionButton(Solution solution)
+		public SolutionButton(Solution solution)
 		{
 			this.solution = solution;
 		}
@@ -72,6 +70,18 @@ public class Encounter
 		{
 			Encounter.this.showResult(solution.resolve(world));
 		}
+	}
+
+	class ContiniueButton implements ButtonCall
+	{
+
+		@Override
+		public void call()
+		{
+			Encounter.this.endEncounter();
+
+		}
+
 	}
 
 	public Encounter(World world, String text, Solution[] solutions)
@@ -93,21 +103,69 @@ public class Encounter
 		for (int x = 0; x < solutions.length; x++)
 		{
 			buttons[x] = new Button(BUTTON_X, BUTTON_Y + x * BOX_DIFF, BUTTON_WIDTH, BUTTON_HEIGHT,
-					solutions[x].getText(), new solutionButton(solutions[x]));
-            InputManager.addButton(buttons[x]);
+					solutions[x].getText(), new SolutionButton(solutions[x]));
+			InputManager.addButton(buttons[x]);
 		}
 
 		texts[0] = new TextBox(TEXT_X, TEXT_Y, TEXT_WIDTH, TEXT_HEIGHT, text);
 
 	}
 
-	public void showResult(String[] result)
+	public void showResult(String[] results)
 	{
-	    for(Button button : buttons){
-	        InputManager.removeButton(button);
-        }
-		this.results = result;
 		this.state = State.RESULT;
+
+		texts = new TextBox[results.length];
+
+		for (Button button : buttons)
+		{
+			InputManager.removeButton(button);
+		}
+
+		for (int x = 0; x < results.length; x++)
+		{
+			switch (x)
+			{
+				case 0:
+				{
+					texts[x] = new TextBox(TEXT_X, TEXT_Y, TEXT_WIDTH, TEXT_HEIGHT, results[x]);
+					break;
+				}
+				case 1:
+				{
+					texts[x] = makeStandartSmallBox(BUTTON_X, BUTTON_Y, texts[x], results[x]);
+					break;
+				}
+				case 2:
+				{
+					texts[x] = makeStandartSmallBox(BUTTON_X + BUTTON_WIDTH / 2 + BOX_DIFF / 4, BUTTON_Y, texts[x],
+							results[x]);
+					break;
+				}
+				case 3:
+				{
+					texts[x] = makeStandartSmallBox(BUTTON_X, BUTTON_Y + BOX_DIFF, texts[x], results[x]);
+					break;
+				}
+				case 4:
+				{
+					texts[x] = makeStandartSmallBox(BUTTON_X + BUTTON_WIDTH / 2 + BOX_DIFF / 4, BUTTON_Y + BOX_DIFF,
+							texts[x], results[x]);
+					break;
+				}
+			}
+
+		}
+
+		buttons = new Button[] { new Button(BUTTON_X, BUTTON_Y + 2 * BOX_DIFF, BUTTON_WIDTH, BUTTON_HEIGHT, "Continue",
+				new ContiniueButton()) };
+
+		InputManager.addButton(buttons[0]);
+	}
+
+	public TextBox makeStandartSmallBox(int x, int y, TextBox box, String text)
+	{
+		return box = new TextBox(x, y, BUTTON_WIDTH / 2 - BOX_DIFF / 4, BUTTON_HEIGHT, text);
 	}
 
 	public void endEncounter()
@@ -118,25 +176,52 @@ public class Encounter
 	public void draw(Graphics g)
 	{
 
-		g.setColor(Color.GRAY);
-		g.fillRect(MAINBOX_X, MAINBOX_Y, MAINBOX_WIDTH, MAINBOX_HEIGHT);
-		g.setColor(Color.WHITE);
-		texts[0].draw(g);
-		
-
 		switch (state)
 		{
 			case STARTED:
 			{
-
+				mainBoxDraw(g);
+				g.setColor(Color.WHITE);
 				texts[0].draw(g);
 				for (Button button : buttons)
 				{
 					button.draw(g);
 				}
 
+				break;
+
+			}
+
+			case RESULT:
+			{
+				mainBoxDraw(g);
+				g.setColor(Color.WHITE);
+
+				for (TextBox box : texts)
+				{
+					box.draw(g);
+				}
+
+				for (Button button : buttons)
+				{
+					button.draw(g);
+				}
+
+				break;
+
+			}
+
+			case INACTIVE:
+			{
+				break;
 			}
 
 		}
+	}
+
+	public void mainBoxDraw(Graphics g)
+	{
+		g.setColor(Color.GRAY);
+		g.fillRect(MAINBOX_X, MAINBOX_Y, MAINBOX_WIDTH, MAINBOX_HEIGHT);
 	}
 }
