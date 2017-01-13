@@ -89,7 +89,7 @@ public class Game
 	}
 
 	public static void prepareShutdown(){
-	    shutdown();
+	    running = false;
     }
 
 	private static void shutdown()

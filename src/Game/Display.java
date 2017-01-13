@@ -10,6 +10,8 @@ import java.awt.event.WindowListener;
  */
 public class Display extends JFrame {
 
+    private Canvas canvas;
+
     /**
      * Constructs a Display
      * @param width width of the Display
@@ -17,23 +19,30 @@ public class Display extends JFrame {
      */
     public Display(int width, int height){
         super("Sailing");
+        canvas = new Canvas();
+
         setSize(width,height);
+        canvas.setSize(width,height);
+
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+
+        add(canvas);
         addMouseListener(InputManager.getInstance());
         addKeyListener(InputManager.getInstance());
         addWindowListener(InputManager.getInstance());
         setVisible(true);
-        createBufferStrategy(2);
+        canvas.createBufferStrategy(2);
         //pack();
-        //setIgnoreRepaint(true);
+        setIgnoreRepaint(true);
 
     }
 
     public Graphics getBackBuffer(){
-        return getBufferStrategy().getDrawGraphics();
+        return canvas.getBufferStrategy().getDrawGraphics();
     }
 
     public void flipBuffers(){
-        getBufferStrategy().show();
+        canvas.getBufferStrategy().show();
     }
+
 }
