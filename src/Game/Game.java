@@ -44,7 +44,7 @@ public class Game
 		running = true;
 		display = new Display(WIDTH, HEIGHT);
 		state = GameState.RUNNING;
-
+		InputManager.addButton(button);
 	}
 
 	/**
@@ -111,10 +111,21 @@ public class Game
 	/**
 	 * Renders the game in 60 FPS
 	 */
+
+	static class exitButton implements ButtonCall{
+
+        @Override
+        public void call() {
+            System.out.print("Test");
+            System.exit(0);
+        }
+    }
+
+    static Button button=new Button(0, 0, 100, 100, "Herro", new exitButton());
+
 	private static void render()
 	{
 		g = display.getBackBuffer();
-		Button button=new Button(0, 0, 100, 100, "Herro", null);
 		button.draw(g);
 		display.flipBuffers();
 		// TODO render player(ship n stuff),world etc.

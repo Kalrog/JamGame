@@ -27,8 +27,8 @@ public class Display extends JFrame {
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 
         add(canvas);
-        addMouseListener(InputManager.getInstance());
-        addKeyListener(InputManager.getInstance());
+        canvas.addMouseListener(InputManager.getInstance());
+        canvas.addKeyListener(InputManager.getInstance());
         addWindowListener(InputManager.getInstance());
         setVisible(true);
         canvas.createBufferStrategy(2);

@@ -30,6 +30,14 @@ public class InputManager implements MouseInputListener, KeyListener, WindowList
 		return inputManager;
 	}
 
+	public static void addButton(Button button){
+	    buttons.add(button);
+    }
+
+    public static void removeButton(Button button){
+	    buttons.remove(button);
+    }
+
 	/*
 	 * Keyboard
 	 */
@@ -37,7 +45,7 @@ public class InputManager implements MouseInputListener, KeyListener, WindowList
 	@Override
 	public void keyTyped(KeyEvent keyEvent)
 	{
-
+	    System.out.print(keyEvent.getKeyChar());
 	}
 
 	@Override
