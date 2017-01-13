@@ -90,7 +90,7 @@ public class InputManager implements MouseInputListener,KeyListener,WindowListen
 
     @Override
     public void windowClosing(WindowEvent windowEvent) {
-
+        Game.prepareShutdown();
     }
 
     @Override

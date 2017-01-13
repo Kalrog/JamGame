@@ -84,10 +84,15 @@ public class Game
 		shutdown();
 	}
 
+	public static void prepareShutdown(){
+	    shutdown();
+    }
+
 	private static void shutdown()
 	{
 		// TODO Close Display etc.
-
+        display.dispose();
+        System.exit(0);
 	}
 
 	/**

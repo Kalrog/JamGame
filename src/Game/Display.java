@@ -22,9 +22,11 @@ public class Display extends JFrame {
         addMouseListener(InputManager.getInstance());
         addKeyListener(InputManager.getInstance());
         addWindowListener(InputManager.getInstance());
-        pack();
-        setIgnoreRepaint(true);
+        setVisible(true);
         createBufferStrategy(2);
+        //pack();
+        //setIgnoreRepaint(true);
+
     }
 
     public Graphics getBackBuffer(){
