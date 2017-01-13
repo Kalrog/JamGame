@@ -13,17 +13,16 @@ public class Game
 	public static Display display;
 
 	public static GameState state;
-	
+
 	private static Graphics g;
 
 	public static boolean running;
-	
+
 	public static final int FPS = 60;
-	
+
 	public static final int HEIGHT = 480;
-	
+
 	public static final int WIDTH = 640;
-	
 
 	private enum GameState
 	{
@@ -33,7 +32,7 @@ public class Game
 	public static void main(String[] args)
 	{
 		init();
-		run(1/FPS);
+		run(1 / FPS);
 	}
 
 	/**
@@ -88,20 +87,22 @@ public class Game
 		shutdown();
 	}
 
-	public static void prepareShutdown(){
-	    running = false;
-    }
+	public static void prepareShutdown()
+	{
+		running = false;
+	}
 
 	private static void shutdown()
 	{
 		// TODO Close Display etc.
-        display.dispose();
-        System.exit(0);
+		display.dispose();
+		System.exit(0);
 	}
 
 	/**
 	 * Updates all values in the game;
-	 * @param delta 
+	 *
+	 * @param delta
 	 */
 	private static void update(double delta)
 	{
