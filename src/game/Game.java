@@ -3,8 +3,10 @@ package game;
 import java.awt.Graphics;
 
 import encounter.Encounter;
+import encounter.PirateEncounter;
 import encounter.Solution;
 import world.World;
+import player.Player;
 
 /**
  * Manages the game loop and initialisation of the game
@@ -14,9 +16,15 @@ import world.World;
 public class Game
 {
 
+    public static final String NEW_LINE = System.lineSeparator();
+
 	public static Display display;
 
 	public static GameState state;
+
+	private static World world;
+
+	private static Player player;
 
 	private static Graphics g;
 
@@ -67,11 +75,15 @@ public class Game
 		running = true;
 		display = new Display(WIDTH, HEIGHT);
 		state = GameState.RUNNING;
+		player = new Player("Kalrog");
+		world = new World(player,1);
 		// InputManager.addButton(button);
 
 		// these are for testing
-		encounter = new Encounter(new World(null, 0), "This is a test foar encounters",
-				new Solution[] { new testSolution(), new testSolution() });
+		/*encounter = new Encounter(new World(null, 0), "This is a test foar encounters",
+		*		new Solution[] { new testSolution(), new testSolution() });
+		*/
+		encounter = new PirateEncounter(world,30);
 		encounter.startEncounter();
 
 	}

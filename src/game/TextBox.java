@@ -26,6 +26,7 @@ public class TextBox
 		g.fillRect(rect.x, rect.y, rect.width, rect.height);
 		g.setColor(Color.BLACK);
 		g.drawRect(rect.x, rect.y, rect.width, rect.height);
+		//TODO Split lines at /n and draw
 		g.drawString(text, rect.x + 10, rect.y + rect.height / 2);
 
 	}
