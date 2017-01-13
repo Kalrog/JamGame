@@ -3,18 +3,19 @@ package game;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.Rectangle;
 
 public class TextBox
 {
 
-	Point point;
+	Rectangle rect;
 
 	String text;
 
-	public TextBox(int posx, int posy, String text)
+	public TextBox(int posx, int posy, int width, int height, String text)
 	{
 
-		point = new Point(posx, posy);
+		rect = new Rectangle(posx, posy, width, height);
 		this.text = text;
 
 	}
@@ -22,10 +23,10 @@ public class TextBox
 	public void draw(Graphics g)
 	{
 		g.setColor(Color.WHITE);
-		g.fillRect(point.x, point.y, g.getFontMetrics().stringWidth(text) + 20, g.getFontMetrics().getHeight() + 20);
+		g.fillRect(rect.x, rect.y, rect.width, rect.height);
 		g.setColor(Color.BLACK);
-		g.drawRect(point.x, point.y, g.getFontMetrics().stringWidth(text) + 20, g.getFontMetrics().getHeight() + 20);
-		g.drawString(text, point.x + 10, point.y + (g.getFontMetrics().getHeight() + 20) / 2);
+		g.drawRect(rect.x, rect.y, rect.width, rect.height);
+		g.drawString(text, rect.x + 10, rect.y + rect.height / 2);
 
 	}
 }
