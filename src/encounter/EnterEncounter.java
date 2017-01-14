@@ -78,7 +78,7 @@ public class EnterEncounter extends Encounter
 			results = new String[4];
 			results[0] = "You defeated the pirates";
 			int damage = ((int) (Math.random() * 5) + 1);
-			w.player.health -= damage;
+			w.player.setHealth(w.player.getHealth() - damage);
 			results[1] = "Health: -" + damage;
 			int moralGain = ((int) (Math.random() * 5) + 5);
 			w.player.moral += moralGain;

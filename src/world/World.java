@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import encounter.Encounter;
 import player.Player;
+import player.Player.Condition;
 
 /**
  * 
@@ -16,6 +17,8 @@ public class World
 	public Player player;
 
 	int difficulty;
+
+	Condition currentCondition = player.condition;
 
 	Encounter[] encounters;
 
@@ -32,13 +35,18 @@ public class World
 
 	public void draw(Graphics g)
 	{
-		if(activeEncounters.size() > 0)
-		activeEncounters.get(activeEncounters.size() - 1).draw(g);
+		if (activeEncounters.size() > 0) activeEncounters.get(activeEncounters.size() - 1).draw(g);
 	}
 
 	public void update()
 	{
 		int total = sumOfEncounterChance(encounters);
+
+		if (player.condition != null)
+		{
+			conditionManager();
+		}
+
 		for (Encounter encounter : encounters)
 		{
 			total -= encounter.chance;
@@ -47,6 +55,21 @@ public class World
 				encounter.startEncounter();
 				player.distance++;
 				player.food--;
+			}
+		}
+	}
+
+	public void conditionManager()
+	{
+		switch (player.condition)
+		{
+			default:
+			{
+
+			}
+			case SEASICK:
+			{
+				player.skill = (int) (0.8 * player.skill);
 			}
 		}
 	}

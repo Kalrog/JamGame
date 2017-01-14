@@ -8,17 +8,18 @@ package player;
 public class Player
 {
 
-	String	name;
+	String name;
 
-	public int money , moral, food, skill, health , distance;
-	
+	private int money, moral, food, skill, health, distance;
+
 	public Condition condition = null;
-	
+
+	public double modifier = 1;
+
 	public enum Condition
 	{
 		SEASICK;
 	}
-
 
 	/**
 	 * Creates a player and sets some values
@@ -28,7 +29,7 @@ public class Player
 	 */
 	public Player(String name)
 	{
-		
+
 		health = 100;
 		moral = 100;
 		money = 100;
@@ -42,6 +43,86 @@ public class Player
 	public int totalCrewAbility()
 	{
 		return skill * (moral + 20) / 100;
+	}
+	
+	public int getSkill()
+	{
+		return (int) (modifier * skill);
+	}
+
+	public int getMoney()
+	{
+		return money;
+	}
+
+	public void setMoney(int money)
+	{
+		this.money = money;
+	}
+
+	public int getMoral()
+	{
+		return moral;
+	}
+
+	public void setMoral(int moral)
+	{
+		this.moral = moral;
+	}
+
+	public int getFood()
+	{
+		return food;
+	}
+
+	public void setFood(int food)
+	{
+		this.food = food;
+	}
+
+	public int getHealth()
+	{
+		return health;
+	}
+
+	public void setHealth(int health)
+	{
+		this.health = health;
+	}
+
+	public int getDistance()
+	{
+		return distance;
+	}
+
+	public void setDistance(int distance)
+	{
+		this.distance = distance;
+	}
+
+	public Condition getCondition()
+	{
+		return condition;
+	}
+
+	public void setCondition(Condition condition)
+	{
+		this.condition = condition;
+	}
+
+	public double getModifier()
+	{
+		return modifier;
+	}
+
+	public void setModifier(double modifier)
+	{
+		this.modifier = modifier;
+	}
+
+	public void setSkill(int skill)
+	{
+		this.skill = skill;
 	}
 
 }
