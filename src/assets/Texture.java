@@ -1,6 +1,7 @@
 package assets;
 
 import javax.imageio.ImageIO;
+import javax.xml.soap.Text;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -19,16 +20,19 @@ public class Texture
     {
         this.height = height;
         this.width = width;
-        this.image = new BufferedImage(height, width, BufferedImage.TYPE_INT_ARGB);
-        this.image.getGraphics().drawImage(image, 0, 0, height, width, null);
+        this.image = new BufferedImage(width,height, BufferedImage.TYPE_INT_ARGB);
+        this.image.getGraphics().drawImage(image, 0, 0, width, height, null);
     }
 
     public Texture(String path, int width, int height)
     {
+
         try
         {
-            BufferedImage load = ImageIO.read(new File(path));
-            new Texture(load, width, height);
+            this.height = height;
+            this.width = width;
+            this.image = new BufferedImage(width,height, BufferedImage.TYPE_INT_ARGB);
+            this.image.getGraphics().drawImage(ImageIO.read(new File(path)), 0, 0, width , height, null);
         } catch (Exception e)
         {
             e.printStackTrace();
@@ -39,6 +43,17 @@ public class Texture
     public void draw(Graphics g, int x, int y)
     {
         g.drawImage(image, x - width / 2, y - height + yShift, null);
+    }
+
+    @Override
+    public Texture clone()
+    {
+        return new Texture(image,width,height);
+    }
+
+    public void setYShift(int shift)
+    {
+        this.yShift = shift;
     }
 
 }

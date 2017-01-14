@@ -63,7 +63,7 @@ public class Encounter
 
 	private enum State
 	{
-		STARTED, RESULT, INACTIVE
+		STARTED, RESULT, INACTIVE , COMPLETED
 	}
 
 	class SolutionButton implements ButtonCall
@@ -103,6 +103,8 @@ public class Encounter
 		this.state = State.INACTIVE;
 		this.chance = chance;
 		this.distance = distance;
+		this.priority = priority;
+		this.cooldown = cooldown;
 	}
 
 	public void startEncounter()
@@ -169,7 +171,7 @@ public class Encounter
 
 	private void endEncounter()
 	{
-		this.state = State.INACTIVE;
+		this.state = State.COMPLETED;
 		buttons[0].dispose();
 		// InputManager.removeButton(buttons[0]);
 		world.removeActiveEncounter(this);
@@ -213,6 +215,7 @@ public class Encounter
 
 			}
 
+            case COMPLETED:
 			case INACTIVE:
 			{
 				if(texture != null)
@@ -363,8 +366,13 @@ public class Encounter
             public int compare(Encounter encounter, Encounter t1)
             {
                 int diff = encounter.distance - t1.distance;
+
                 if(diff == 0)
-                    return t1.priority - encounter.priority;
+                {
+                    if (encounter.priority > t1.priority)
+                        return -1;
+                    return 1;
+                }
                 else
                     return diff;
             }

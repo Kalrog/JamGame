@@ -15,8 +15,8 @@ public class IslandEncounter extends Encounter
 	public IslandEncounter(World w, int distance)
 	{
 		super(w, AssetLoader.getRandomIslandTexture(),
-		        "Yout lookout spotted an Island in the distance/nExplore the isalnd?", new Solution[] {}, 5, distance,
-		        1, 13);
+		        "Your lookout spotted an island in the distance/nExplore the island?", new Solution[] {new goIsland(),new leaveIsland()}, 5, distance,
+		        1, 300);
 		this.w = w;
 	}
 
@@ -28,15 +28,15 @@ public class IslandEncounter extends Encounter
 		@Override
 		public String[] resolve(World w)
 		{
-			int randome = ThreadLocalRandom.current().nextInt(0, 1);
+			int randome = ThreadLocalRandom.current().nextInt(0, 3);
 
 			switch (randome) {
 			case 0:
-				results = manyRecources();
+				results = manyRecources(); break;
 			case 1:
-				results = disease();
+				results = disease(); break;
 			case 2:
-				results = tribe();
+				results = tribe(); break;
 				/*
 				 * case 3: results = shark(); case 4: results = volcano(); case
 				 * 5: results = mysticalTemple();
@@ -76,7 +76,7 @@ public class IslandEncounter extends Encounter
 	{
 		String[] results = new String[4];
 
-		results[0] = "The Island has plenty of recources to scavenge";
+		results[0] = "The Island has plenty of resources to scavenge";
 		int foodGain = ((int) (Math.random() * 4) + 7);
 		results[1] = "Food: +" + foodGain;
 		w.player.changFood(+foodGain);
@@ -99,7 +99,7 @@ public class IslandEncounter extends Encounter
 		        Condition.ILL);
 		results[2] = "Condition: Illness";
 		w.player.addCondition(Condition.ILL);
-		return null;
+		return results;
 	}
 
 	private static String[] tribe()

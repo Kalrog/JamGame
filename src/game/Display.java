@@ -29,7 +29,7 @@ public class Display extends JFrame {
         canvas.addKeyListener(InputManager.getInstance());
         addWindowListener(InputManager.getInstance());
         setVisible(true);
-        //setResizable(false);
+        setResizable(false);
         canvas.createBufferStrategy(2);
         pack();
         setIgnoreRepaint(true);

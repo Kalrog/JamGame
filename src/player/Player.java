@@ -133,7 +133,7 @@ public class Player
 
 	public void draw(Graphics g)
 	{
-		texture.draw(g , Display.canvas.getWidth() - texture.width / 2,Game.SEE_LEVEL);
+		texture.draw(g , Display.canvas.getWidth() - texture.width/2 - 20,Game.SEE_LEVEL);
 	}
 
 }

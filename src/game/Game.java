@@ -2,6 +2,7 @@ package game;
 
 import java.awt.Graphics;
 
+import assets.AssetLoader;
 import assets.SoundPlayer;
 import encounter.Encounter;
 import encounter.PirateEncounter;
@@ -30,29 +31,30 @@ public class Game
 
 	public static boolean running;
 
-	public static final int FPS = 60;
+	public static final int FPS = 30;
 
 	public static final int HEIGHT = 480;
 
 	public static final int WIDTH = 640;
 
-	public static final int SEE_LEVEL = 250;
+	public static final int SEE_LEVEL = 350;
 
 	static Encounter encounter;
 
 	private enum GameState
 	{
-		RUNNING, STOPED;
+		RUNNING, STOPPED;
 	}
 
 	public static void main(String[] args)
 	{
+	    AssetLoader.loadTextures();
 		init();
 		run(1 / FPS);
 	}
 
 	// test class
-	static class testSolution implements Solution
+	/*static class testSolution implements Solution
 	{
 
 		@Override
@@ -67,9 +69,9 @@ public class Game
 			return "Ayy Lmao";
 		}
 
-	}
+	}*/
 
-	// end of texst class
+	// end of test class
 
 	/**
 	 * Initialises all required variables and Objects to run the game
@@ -80,7 +82,7 @@ public class Game
 		display = new Display(WIDTH, HEIGHT);
 		state = GameState.RUNNING;
 		player = new Player("Kalrog");
-		world = new World(player, 1);
+		world = new World(player, 2000);
 		// InputManager.addButton(button);
 
 		// these are for testing
@@ -110,13 +112,13 @@ public class Game
 			if (currTime >= nextTime)
 			{
 				// assign the time for the next update
-				update(delta + Math.abs((nextTime - currTime)));
+				update();
 				nextTime += delta;
 				render();
 			} else
 			{
 				// calculate the time to sleep
-				int sleepTime = (int) (1000.0 * (nextTime - currTime));
+				int sleepTime = (int) (200.0 * (nextTime - currTime));
 				// sanity check
 				if (sleepTime > 0)
 				{
@@ -146,13 +148,9 @@ public class Game
 		System.exit(0);
 	}
 
-	/**
-	 * Updates all values in the game;
-	 *
-	 * @param delta
-	 */
-	private static void update(double delta)
+	private static void update()
 	{
+		world.update();
 		// TODO update world, player, encounter
 	}
 

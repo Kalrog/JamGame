@@ -7,7 +7,7 @@ package assets;
  */
 public class AssetLoader
 {
-    public static final String[] ISLAND_TEXTURES = new String[] {"Assets/Island.png:131:103:-30"};
+    public static final String[] ISLAND_TEXTURES = new String[] {"Assets/Island.png:131:103"};
     public static final String[] CITY_TEXTURES = new String[] {};
     public static final String[] PIRATE_TEXTURES = new String[] {};
     public static final String[] STORM_TEXTURES = new String[] {};
@@ -17,17 +17,17 @@ public class AssetLoader
     public static Texture[] pirateTextures;
     public static Texture[] stormTextures;
 
-    public void loadTextures()
+    public static void loadTextures()
     {
-        load(ISLAND_TEXTURES,islandTextures);
+        islandTextures = load(ISLAND_TEXTURES);
         //load(CITY_TEXTURES,cityTextures);
         //load(PIRATE_TEXTURES,pirateTextures);
         //load(STORM_TEXTURES,stormTextures);
     }
 
-    private void load(String[] texData,Texture[] textures)
+    private static Texture[] load(String[] texData)
     {
-        textures = new Texture[texData.length];
+        Texture[] textures = new Texture[texData.length];
         int position = 0;
         for(String tex : texData)
         {
@@ -38,6 +38,7 @@ public class AssetLoader
 
             position++;
         }
+        return textures;
     }
 
     public static Texture getRandomIslandTexture()
@@ -63,6 +64,6 @@ public class AssetLoader
     private static Texture randomTexture(Texture[] textures)
     {
         int random = (int)(Math.random() * textures.length);
-        return textures[random];
+        return textures[random].clone();
     }
 }
