@@ -1,3 +1,4 @@
+
 package encounter;
 
 import java.util.concurrent.ThreadLocalRandom;
@@ -13,8 +14,9 @@ public class IslandEncounter extends Encounter
 
 	public IslandEncounter(World w, int distance)
 	{
-		super(w, AssetLoader.getRandomIslandTexture(), "Yout lookout spotted an Island in the distance/nExplore the isalnd?", new Solution[] {}, 5, distance,
-				1, 13);
+		super(w, AssetLoader.getRandomIslandTexture(),
+		        "Yout lookout spotted an Island in the distance/nExplore the isalnd?", new Solution[] {}, 5, distance,
+		        1, 13);
 		this.w = w;
 	}
 
@@ -28,20 +30,17 @@ public class IslandEncounter extends Encounter
 		{
 			int randome = ThreadLocalRandom.current().nextInt(0, 1);
 
-			switch (randome)
-			{
-				case 0:
-					results = manyRecources();
-				case 1:
-					results = disease();
-				case 2:
-					results = tribe();
-				case 3:
-					results = shark();
-				case 4:
-					results = volcano();
-				case 5:
-					results = mysticalTemple();
+			switch (randome) {
+			case 0:
+				results = manyRecources();
+			case 1:
+				results = disease();
+			case 2:
+				results = tribe();
+				/*
+				 * case 3: results = shark(); case 4: results = volcano(); case
+				 * 5: results = mysticalTemple();
+				 */
 			}
 
 			return results;
@@ -97,17 +96,24 @@ public class IslandEncounter extends Encounter
 		w.player.changeMoral(-moralLoss);
 		int untilCured = 6;
 		RemoveCondition removeCondition = new RemoveCondition(w, "Your Crew overcame their illness", untilCured,
-				Condition.ILL);
+		        Condition.ILL);
 		results[2] = "Condition: Illness";
 		w.player.addCondition(Condition.ILL);
 		return null;
 	}
 
 	private static String[] tribe()
-	{
-		String[] results = new String[]{};
+	{	
 		
-		return results;
+		if (Math.random() >= 0.5)
+		{
+			new TribeHostile(w).startEncounter();
+		} else
+		{
+			//new TribeFriendly(w).startEncounter;
+		}
+
+		return new String[]{ "You see a native Tribe living on the Island" };
 	}
 
 }

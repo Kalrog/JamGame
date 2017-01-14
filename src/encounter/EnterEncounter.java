@@ -1,3 +1,4 @@
+
 package encounter;
 
 import world.World;
@@ -6,8 +7,8 @@ public class EnterEncounter extends Encounter
 {
 	public EnterEncounter(World world, int strength)
 	{
-		super(world,null, "Do you want to enter the pirates Ship?",
-				new Solution[] { new EnterEven(strength), new NoFight()},  0 , 0 , 0 , 0);
+		super(world, null, "Do you want to enter the pirates Ship?",
+		        new Solution[] { new EnterEven(strength), new NoFight() }, 0, 0, 0, 0);
 	}
 
 	static class EnterEven implements Solution
@@ -30,31 +31,31 @@ public class EnterEncounter extends Encounter
 				results = new String[5];
 				results[0] = "You entered the pirates but they defeated your crew";
 				int damage = ((int) (Math.random() * 15) + 5);
-				w.player.changeHealth(w.player.getHealth() - damage);
+				w.player.changeHealth(-damage);
 				results[1] = "Health: -" + damage;
 				int moralLoss = ((int) (Math.random() * 7) + 20);
-				w.player.changeMoral(w.player.getMoral() - moralLoss);
+				w.player.changeMoral(-moralLoss);
 				results[2] = "Moral: -" + moralLoss;
 				int foodLoss = ((int) (Math.random() * 10) + 4);
-				w.player.changFood(w.player.getFood() + foodLoss);
+				w.player.changFood(+foodLoss);
 				results[3] = "Food: -" + foodLoss;
 				// skillLoss: calculates remaining crew in % and multiplies by
 				// current skill
 				int skillLoss = (int) (w.player.getSkill() * (Math.random() * 5 + 4) / 30.0);
-				w.player.changeSkill(w.player.getSkill()- skillLoss);
+				w.player.changeSkill(-skillLoss);
 				results[4] = "Skill: -" + skillLoss;
 			} else
 			{
 				results = new String[4];
 				results[0] = "You defeated the pirates and looted their cargo";
 				int damage = ((int) (Math.random() * 5) + 1);
-				w.player.changeHealth(w.player.getHealth() - damage);
+				w.player.changeHealth(-damage);
 				results[1] = "Health: -" + damage;
 				int moralGain = ((int) (Math.random() * 7) + 20);
-				w.player.changeMoral(w.player.getMoral() + moralGain);
+				w.player.changeMoral(+moralGain);
 				results[2] = "Moral: +" + moralGain;
 				int foodGain = ((int) (Math.random() * 10) + 20);
-				w.player.changFood(w.player.getFood() + foodGain);
+				w.player.changFood(+foodGain);
 				results[3] = "Food: +" + foodGain;
 			}
 			return results;
@@ -78,13 +79,13 @@ public class EnterEncounter extends Encounter
 			results = new String[4];
 			results[0] = "You defeated the pirates";
 			int damage = ((int) (Math.random() * 5) + 1);
-			w.player.changeHealth(w.player.getHealth() - damage);
+			w.player.changeHealth(-damage);
 			results[1] = "Health: -" + damage;
 			int moralGain = ((int) (Math.random() * 5) + 5);
-			w.player.changeMoral(w.player.getMoral() + moralGain);
+			w.player.changeMoral(+moralGain);
 			results[2] = "Moral: +" + moralGain;
 			int foodGain = ((int) (Math.random() * 2) + 5);
-			w.player.changFood(w.player.getFood() + foodGain);
+			w.player.changFood(+foodGain);
 			results[3] = "Food: +" + foodGain;
 
 			return results;
