@@ -45,6 +45,8 @@ public class Player
 		food = 20;// <==filler :: not clear what units to use yet
 		this.name = name;
 		conditions = new ArrayList<>();
+		texture = new Texture("Assets/ship.png" , 119, 75);
+		texture.yShift = -10;
 
 	}
 

@@ -7,7 +7,7 @@ package assets;
  */
 public class AssetLoader
 {
-    public static final String[] ISLAND_TEXTURES = new String[] {};
+    public static final String[] ISLAND_TEXTURES = new String[] {"Assets/Island.png:131:103:-30"};
     public static final String[] CITY_TEXTURES = new String[] {};
     public static final String[] PIRATE_TEXTURES = new String[] {};
     public static final String[] STORM_TEXTURES = new String[] {};
@@ -20,9 +20,9 @@ public class AssetLoader
     public void loadTextures()
     {
         load(ISLAND_TEXTURES,islandTextures);
-        load(CITY_TEXTURES,cityTextures);
-        load(PIRATE_TEXTURES,pirateTextures);
-        load(STORM_TEXTURES,stormTextures);
+        //load(CITY_TEXTURES,cityTextures);
+        //load(PIRATE_TEXTURES,pirateTextures);
+        //load(STORM_TEXTURES,stormTextures);
     }
 
     private void load(String[] texData,Texture[] textures)
@@ -32,7 +32,11 @@ public class AssetLoader
         for(String tex : texData)
         {
             String[] info = tex.split(":");
-            textures[position++] = new Texture(info[0],Integer.valueOf(info[1]),Integer.valueOf(info[2]));
+            textures[position] = new Texture(info[0],Integer.valueOf(info[1]),Integer.valueOf(info[2]));
+            if(info.length == 4)
+                textures[position].yShift = Integer.valueOf(info[3]);
+
+            position++;
         }
     }
 
