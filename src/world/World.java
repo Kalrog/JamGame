@@ -42,37 +42,19 @@ public class World
 	{
 		int total = sumOfEncounterChance(encounters);
 
-		if (player.condition != null)
-		{
-			conditionManager();
-		}
-
 		for (Encounter encounter : encounters)
 		{
 			total -= encounter.chance;
 			if (total < 0)
 			{
 				encounter.startEncounter();
-				player.distance++;
-				player.food--;
+				player.setDistance(player.getDistance() + 1);
+				player.setFood(player.getFood() + 1);
+				;
 			}
 		}
 	}
 
-	public void conditionManager()
-	{
-		switch (player.condition)
-		{
-			default:
-			{
-
-			}
-			case SEASICK:
-			{
-				player.skill = (int) (0.8 * player.skill);
-			}
-		}
-	}
 
 	public void addEncounter(Encounter encounter)
 	{
