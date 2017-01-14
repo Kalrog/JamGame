@@ -87,8 +87,7 @@ public class Game
 		 * "This is a test foar encounters", new Solution[] { new
 		 * testSolution(), new testSolution() });
 		 */
-		encounter = new StormEncounter(world, 120, 0);
-		encounter.startEncounter();
+		
 
 	}
 
