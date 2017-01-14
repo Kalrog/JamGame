@@ -7,7 +7,7 @@ public class EnterEncounter extends Encounter
 	public EnterEncounter(World world, int strength)
 	{
 		super(world, "Do you want to enter the pirates Ship?",
-				new Solution[] { new EnterEven(strength), new NoFight() });
+				new Solution[] { new EnterEven(strength), new NoFight()},  0 , 0 , 0 , 0);
 	}
 
 	static class EnterEven implements Solution
