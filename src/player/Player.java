@@ -61,9 +61,9 @@ public class Player
 		return money;
 	}
 
-	public void setMoney(int money)
+	public void changeMoney(int money)
 	{
-		this.money = money;
+		this.money += money;
 	}
 
 	public int getMoral()
@@ -74,9 +74,9 @@ public class Player
 	        return moral;
 	}
 
-	public void setMoral(int moral)
+	public void changeMoral(int moral)
 	{
-		this.moral = moral;
+		this.moral += moral;
 	}
 
 	public int getFood()
@@ -84,9 +84,9 @@ public class Player
 		return food;
 	}
 
-	public void setFood(int food)
+	public void changFood(int food)
 	{
-		this.food = food;
+		this.food += food;
 	}
 
 	public int getHealth()
@@ -94,9 +94,9 @@ public class Player
 		return health;
 	}
 
-	public void setHealth(int health)
+	public void changeHealth(int health)
 	{
-		this.health = health;
+		this.health += health;
 	}
 
 	public int getDistance()
@@ -104,9 +104,9 @@ public class Player
 		return distance;
 	}
 
-	public void setDistance(int distance)
+	public void changeDistance(int distance)
 	{
-		this.distance = distance;
+		this.distance += distance;
 	}
 
 	public Condition getCondition()
@@ -119,9 +119,9 @@ public class Player
 		this.condition = condition;
 	}
 
-	public void setSkill(int skill)
+	public void changeSkill(int skill)
 	{
-		this.skill = skill;
+		this.skill += skill;
 	}
 
 }

@@ -78,8 +78,8 @@ public class World
             if (frame > FRAMES_PER_UPDATE)
             {
                 frame = 0;
-                player.setDistance(player.getDistance() + 1);
-                player.setFood(player.getFood() - 1);
+                player.changeDistance(player.getDistance() + 1);
+                player.changFood(player.getFood() - 1);
 
             }
         }

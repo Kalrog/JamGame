@@ -11,10 +11,10 @@ import world.World;
 public class PirateEncounter extends Encounter
 {
 
-	public PirateEncounter(World world, int strength , int distance)
+	public PirateEncounter(World world, int strength, int distance)
 	{
 		super(world, "You encounter a pirate ship",
-				new Solution[] { new FightSolution(strength), new RunSolution(strength) } , 20 , distance, 1, 5 );
+				new Solution[] { new FightSolution(strength), new RunSolution(strength) }, 20, distance, 1, 5);
 
 	}
 
@@ -38,17 +38,17 @@ public class PirateEncounter extends Encounter
 				results = new String[4];
 				results[0] = "Your ship was badly damaged by the pirates/nand you lost some cargo";
 				int damage = ((int) (Math.random() * 15) + 5);
-				w.player.setHealth(w.player.getHealth() - damage);
+				w.player.changeHealth(-damage);
 				results[1] = "Health: -" + damage;
 				int moralLoss = ((int) (Math.random() * 5) + 5);
-                w.player.setMoral(w.player.getMoral() - moralLoss);
+				w.player.changeMoral(-moralLoss);
 				results[2] = "Moral: -" + moralLoss;
 				int foodLoss = ((int) (Math.random() * 10) + 1);
-				w.player.setFood(w.player.getFood() - foodLoss);
+				w.player.changFood(-foodLoss);
 				results[3] = "Food: -" + foodLoss;
 			} else
 			{
-				if (w.player.getSkill()> 50 && w.player.getMoral() > 75 && Math.random() >= 0.5)
+				if (w.player.getSkill() > 50 && w.player.getMoral() > 75 && Math.random() >= 0.5)
 				{
 					EnterEncounter enterEncounter = new EnterEncounter(w, strength);
 					enterEncounter.startEncounter();
@@ -59,13 +59,13 @@ public class PirateEncounter extends Encounter
 					results = new String[4];
 					results[0] = "You defeated the pirates";
 					int damage = ((int) (Math.random() * 5) + 1);
-                    w.player.setHealth(w.player.getHealth() - damage);
+					w.player.changeHealth(-damage);
 					results[1] = "Health: -" + damage;
 					int moralGain = ((int) (Math.random() * 5) + 5);
-                    w.player.setMoral(w.player.getMoral() + moralGain);
+					w.player.changeMoral(+moralGain);
 					results[2] = "Moral: +" + moralGain;
 					int foodGain = ((int) (Math.random() * 2) + 5);
-                    w.player.setFood(w.player.getFood() + foodGain);
+					w.player.changFood(+foodGain);
 					results[3] = "Food: +" + foodGain;
 				}
 
@@ -93,8 +93,6 @@ public class PirateEncounter extends Encounter
 
 		int skill;
 
-		int moral;
-
 		@Override
 		public String[] resolve(World w)
 		{
@@ -113,7 +111,7 @@ public class PirateEncounter extends Encounter
 				results[0] = "You manage to flee from the Pirates";
 				moralGain = ((int) (Math.random() * 5) + 5);
 				results[1] = "Moral: +" + moralGain;
-				moral += moralGain;
+				w.player.changeMoral(+moralGain);
 			}
 			return results;
 		}
@@ -147,26 +145,26 @@ public class PirateEncounter extends Encounter
 				results = new String[4];
 				results[0] = "You didn't manage to flee from the Pirates/n and were slightly damaged";
 				int damage = ((int) (Math.random() * 11) + 3);
-                w.player.setHealth(w.player.getHealth() - damage);
+				w.player.changeHealth(-damage);
 				results[1] = "Health: -" + damage;
 				int moralLoss = ((int) (Math.random() * 8) + 3);
-				w.player.setMoral(w.player.getMoral() - moralLoss);
+				w.player.changeMoral(-moralLoss);
 				results[2] = "Moral: -" + moralLoss;
 				int foodLoss = ((int) (Math.random() * 6) + 2);
-                w.player.setFood(w.player.getFood() - foodLoss);
+				w.player.changFood(-foodLoss);
 				results[3] = "Food: -" + foodLoss;
 			} else
 			{
 				results = new String[4];
 				results[0] = "You didn't manage to flee from the Pirates/n but luckily defeated them";
 				int damage = ((int) (Math.random() * 7) + 1);
-                w.player.setHealth(w.player.getHealth() - damage);
+				w.player.changeHealth(-damage);
 				results[1] = "Health: -" + damage;
 				int moralGain = ((int) (Math.random() * 3) + 3);
-                w.player.setMoral(w.player.getMoral() + moralGain);
+				w.player.changeMoral(+moralGain);
 				results[2] = "Moral: +" + moralGain;
 				int foodGain = ((int) (Math.random() * 4) + 1);
-                w.player.setFood(w.player.getFood() + foodGain);
+				w.player.changFood(+foodGain);
 				results[3] = "Food: +" + foodGain;
 
 			}

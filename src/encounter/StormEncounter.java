@@ -6,9 +6,10 @@ import world.World;
 public class StormEncounter extends Encounter
 {
 
-	public StormEncounter(World world, int strength ,int distance)
+	public StormEncounter(World world, int strength, int distance)
 	{
-		super(world, "You see a Storm brewing up in the distance", new Solution[] {new AvoidStorm(), new ThroughStorm(strength)} , 20 , distance, 1 , 5);
+		super(world, "You see a Storm brewing up in the distance",
+				new Solution[] { new AvoidStorm(), new ThroughStorm(strength) }, 20, distance, 1, 5);
 	}
 
 	static class AvoidStorm implements Solution
@@ -23,6 +24,7 @@ public class StormEncounter extends Encounter
 			results[0] = "You travel around the Storm";
 			int foodLoss = 2;
 			results[1] = "Food: -" + foodLoss;
+			w.player.changFood(-foodLoss);
 
 			return results;
 		}
@@ -51,27 +53,29 @@ public class StormEncounter extends Encounter
 		public String[] resolve(World w)
 		{
 			int stormResult = ((int) (Math.random() * (w.player.totalCrewAbility() + strength))) - strength;
-			
-			if(stormResult < 0)
+
+			if (stormResult < 0)
 			{
 				results = new String[3];
 				results[0] = "You sail through the Strom but your crew didn't take it so well";
 				w.player.condition = Condition.SEASICK;
 				int untilCured = 3;
-				RemoveCondition removeCondition = new RemoveCondition(w, "Your Crew overcame their seasickness", untilCured);
+				RemoveCondition removeCondition = new RemoveCondition(w, "Your Crew overcame their seasickness",
+						untilCured);
 				results[1] = "Condition: Seasickness";
 				int moralLoss = ((int) (Math.random() * 8) + 5);
 				results[2] = "Moral: -" + moralLoss;
-				w.player.setMoral(w.player.getMoral() - moralLoss);
-				
-			}else{
+				w.player.changeMoral(-moralLoss);
+
+			} else
+			{
 				results = new String[2];
 				results[0] = "You sail through the Strom and made it out without a problem";
 				int moralGain = ((int) (Math.random() * 8) + 5);
 				results[1] = "Moral: +:" + moralGain;
-				w.player.setMoral(w.player.getMoral() + moralGain);
+				w.player.changeMoral(+moralGain);
 			}
-			
+
 			return results;
 		}
 
