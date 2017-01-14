@@ -13,7 +13,7 @@ public class Texture
 
     BufferedImage image;
 
-    int width, height;
+    public int width, height;
 
     public Texture(BufferedImage image, int width, int height)
     {
