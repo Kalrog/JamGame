@@ -38,17 +38,17 @@ public class PirateEncounter extends Encounter
 				results = new String[4];
 				results[0] = "Your ship was badly damaged by the pirates/nand you lost some cargo";
 				int damage = ((int) (Math.random() * 15) + 5);
-				w.player.health -= damage;
+				w.player.setHealth(w.player.getHealth() - damage);
 				results[1] = "Health: -" + damage;
 				int moralLoss = ((int) (Math.random() * 5) + 5);
-				w.player.moral -= moralLoss;
+                w.player.setMoral(w.player.getMoral() - moralLoss);
 				results[2] = "Moral: -" + moralLoss;
 				int foodLoss = ((int) (Math.random() * 10) + 1);
-				w.player.food -= foodLoss;
+				w.player.setFood(w.player.getFood() - foodLoss);
 				results[3] = "Food: -" + foodLoss;
 			} else
 			{
-				if (w.player.skill > 50 && w.player.moral > 75 && Math.random() >= 0.5)
+				if (w.player.getSkill()> 50 && w.player.getMoral() > 75 && Math.random() >= 0.5)
 				{
 					EnterEncounter enterEncounter = new EnterEncounter(w, strength);
 					enterEncounter.startEncounter();
@@ -59,13 +59,13 @@ public class PirateEncounter extends Encounter
 					results = new String[4];
 					results[0] = "You defeated the pirates";
 					int damage = ((int) (Math.random() * 5) + 1);
-					w.player.health -= damage;
+                    w.player.setHealth(w.player.getHealth() - damage);
 					results[1] = "Health: -" + damage;
 					int moralGain = ((int) (Math.random() * 5) + 5);
-					w.player.moral += moralGain;
+                    w.player.setMoral(w.player.getMoral() + moralGain);
 					results[2] = "Moral: +" + moralGain;
 					int foodGain = ((int) (Math.random() * 2) + 5);
-					w.player.food += foodGain;
+                    w.player.setFood(w.player.getFood() + foodGain);
 					results[3] = "Food: +" + foodGain;
 				}
 
@@ -147,26 +147,26 @@ public class PirateEncounter extends Encounter
 				results = new String[4];
 				results[0] = "You didn't manage to flee from the Pirates/n and were slightly damaged";
 				int damage = ((int) (Math.random() * 11) + 3);
-				w.player.health -= damage;
+                w.player.setHealth(w.player.getHealth() - damage);
 				results[1] = "Health: -" + damage;
 				int moralLoss = ((int) (Math.random() * 8) + 3);
-				w.player.moral -= moralLoss;
+				w.player.setMoral(w.player.getMoral() - moralLoss);
 				results[2] = "Moral: -" + moralLoss;
 				int foodLoss = ((int) (Math.random() * 6) + 2);
-				w.player.food -= foodLoss;
+                w.player.setFood(w.player.getFood() - foodLoss);
 				results[3] = "Food: -" + foodLoss;
 			} else
 			{
 				results = new String[4];
 				results[0] = "You didn't manage to flee from the Pirates/n but luckily defeated them";
 				int damage = ((int) (Math.random() * 7) + 1);
-				w.player.health -= damage;
+                w.player.setHealth(w.player.getHealth() - damage);
 				results[1] = "Health: -" + damage;
 				int moralGain = ((int) (Math.random() * 3) + 3);
-				w.player.moral += moralGain;
+                w.player.setMoral(w.player.getMoral() + moralGain);
 				results[2] = "Moral: +" + moralGain;
 				int foodGain = ((int) (Math.random() * 4) + 1);
-				w.player.food += foodGain;
+                w.player.setFood(w.player.getFood() + foodGain);
 				results[3] = "Food: +" + foodGain;
 
 			}
