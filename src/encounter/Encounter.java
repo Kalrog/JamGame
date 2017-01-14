@@ -4,10 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.Comparator;
 
-import game.Button;
-import game.ButtonCall;
-import game.Display;
-import game.TextBox;
+import assets.Texture;
+import game.*;
 import world.World;
 
 /**
@@ -44,6 +42,8 @@ public class Encounter
 	protected World world;
 
 	public String text;
+
+	public Texture texture;
 
 	public Solution[] solutions;
 
@@ -94,9 +94,10 @@ public class Encounter
 
 	}
 
-	public Encounter(World world, String text, Solution[] solutions , int chance , int distance , int priority , int cooldown)
+	public Encounter(World world, Texture texture, String text, Solution[] solutions , int chance , int distance , int priority , int cooldown)
 	{
 		this.world = world;
+		this.texture = texture;
 		this.text = text;
 		this.solutions = solutions;
 		this.state = State.INACTIVE;
@@ -214,6 +215,7 @@ public class Encounter
 
 			case INACTIVE:
 			{
+			    texture.draw(g,world.player.getDistance() - distance + Game.display.getWidth(), Game.SEE_LEVEL);
 				break;
 			}
 
@@ -359,7 +361,11 @@ public class Encounter
             @Override
             public int compare(Encounter encounter, Encounter t1)
             {
-                return encounter.distance - t1.distance;
+                int diff = encounter.distance - t1.distance;
+                if(diff == 0)
+                    return t1.priority - encounter.priority;
+                else
+                    return diff;
             }
         };
     }

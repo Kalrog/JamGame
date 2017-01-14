@@ -16,9 +16,14 @@ public class World
 {
     private static final int NO_ENCOUNTER_CHANCE = 60;
 
+    private static final int FRAMES_PER_UPDATE = 120;
+
+    int frame;
+
     public Player player;
 
     int size;
+
 
     Condition currentCondition = player.condition;
 
@@ -33,6 +38,7 @@ public class World
 
         this.player = player;
         this.size = size;
+        frame = 0;
         activeEncounters = new LinkedList<>();
         worldEncounters = new LinkedList<>();
 
@@ -53,7 +59,25 @@ public class World
 
     public void update()
     {
+        if(activeEncounters.size() == 0)
+        {
 
+            frame++;
+
+            if (worldEncounters.getFirst().distance == player.getDistance())
+            {
+                worldEncounters.getFirst().startEncounter();
+                worldEncounters.removeFirst();
+            }
+
+            if (frame > FRAMES_PER_UPDATE)
+            {
+                frame = 0;
+                player.setDistance(player.getDistance() + 1);
+                player.setFood(player.getFood() - 1);
+
+            }
+        }
     }
 
 
@@ -109,7 +133,7 @@ public class World
             listPosition -= encounter.chance;
             if (listPosition < 0)
             {
-                return new Encounter(this, encounter.text, encounter.solutions, 0, worldDistance, encounter.priority, encounter.cooldown);
+                return new Encounter(this,encounter.texture, encounter.text, encounter.solutions, 0, worldDistance, encounter.priority, encounter.cooldown);
             }
         }
         return null;

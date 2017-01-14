@@ -7,7 +7,5 @@ package assets;
  */
 public class AssetLoader
 {
-	
-	
-	
+
 }

@@ -1,5 +1,7 @@
 package player;
 
+import assets.Texture;
+
 /**
  * Manages player stats like health or skill
  * 
@@ -16,9 +18,12 @@ public class Player
 
 	public double modifier = 1;
 
+	public Texture texture;
+
+
 	public enum Condition
 	{
-		SEASICK;
+		SEASICK, ILL;
 	}
 
 	/**
@@ -62,7 +67,10 @@ public class Player
 
 	public int getMoral()
 	{
-		return moral;
+	    if(condition == Condition.ILL)
+	        return ((int) (moral * 0.6));
+	    else
+	        return moral;
 	}
 
 	public void setMoral(int moral)

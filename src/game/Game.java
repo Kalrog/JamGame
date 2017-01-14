@@ -36,6 +36,8 @@ public class Game
 
 	public static final int WIDTH = 640;
 
+	public static final int SEE_LEVEL = 250;
+
 	static Encounter encounter;
 
 	private enum GameState
