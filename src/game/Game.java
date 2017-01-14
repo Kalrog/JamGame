@@ -169,9 +169,9 @@ public class Game
 		}
 	}
 
-	static Button button = new Button(200, 200, 100, 100, "Herro", new exitButton());
+	//static Button button = new Button(200, 200, 100, 100, "Herro", new exitButton());
 
-	static TextBox box = new TextBox(0, 0, 200, 100, "Hello this is a test for my textbox");
+	//static TextBox box = new TextBox(0, 0, 200, 100, "Hello this is a test for my textbox");
 
 	private static void render()
 	{

@@ -20,7 +20,6 @@ public class Button
         this.execute = execute;
         rect = new Rectangle(posx, posy, width, height);
         InputManager.addButton(this);
-
     }
 
     public boolean clicked(int posx, int posy)
