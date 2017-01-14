@@ -79,7 +79,7 @@ public class IslandEncounter extends Encounter
 		results[0] = "The Island has plenty of resources to scavenge";
 		int foodGain = ((int) (Math.random() * 4) + 7);
 		results[1] = "Food: +" + foodGain;
-		w.player.changFood(+foodGain);
+		w.player.changeFood(+foodGain);
 		int moralGain = ((int) (Math.random() * 4) + 5);
 		results[2] = "Moral: +" + moralGain;
 		w.player.changeMoral(+moralGain);
@@ -110,7 +110,7 @@ public class IslandEncounter extends Encounter
 			new TribeHostile(w).startEncounter();
 		} else
 		{
-			//new TribeFriendly(w).startEncounter;
+			new TribeFriendly(w).startEncounter();
 		}
 
 		return new String[]{ "You see a native Tribe living on the Island" };

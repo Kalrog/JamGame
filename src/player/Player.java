@@ -91,7 +91,7 @@ public class Player
 		return food;
 	}
 
-	public void changFood(int food)
+	public void changeFood(int food)
 	{
 		this.food += food;
 	}
