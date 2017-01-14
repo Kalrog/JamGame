@@ -1,5 +1,6 @@
 package world;
 
+import java.awt.Graphics;
 import java.util.ArrayList;
 
 import encounter.Encounter;
@@ -17,7 +18,7 @@ public class World
 	int difficulty;
 
 	Encounter[] encounters;
-	
+
 	private ArrayList<Encounter> activeEncounters;
 
 	public World(Player player, int difficulty)
@@ -26,8 +27,13 @@ public class World
 		this.player = player;
 		this.difficulty = difficulty;
 		activeEncounters = new ArrayList<>();
-		
 
+	}
+
+	public void draw(Graphics g)
+	{
+		if(activeEncounters.size() > 0)
+		activeEncounters.get(activeEncounters.size() - 1).draw(g);
 	}
 
 	public void update()

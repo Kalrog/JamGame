@@ -86,7 +86,7 @@ public class Game
 		 * "This is a test foar encounters", new Solution[] { new
 		 * testSolution(), new testSolution() });
 		 */
-		encounter = new PirateEncounter(world, 30);
+		encounter = new PirateEncounter(world, 120);
 		encounter.startEncounter();
 
 	}
@@ -178,7 +178,7 @@ public class Game
 
 		g = display.getBackBuffer();
 		g.clearRect(0, 0, WIDTH, HEIGHT);
-		encounter.draw(g);
+		world.draw(g);
 		// button.draw(g);
 		// box.draw(g);
 		display.flipBuffers();
