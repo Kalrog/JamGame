@@ -55,6 +55,10 @@ public class Encounter
 
 	public int distance;
 
+	public int priority;
+
+	public int cooldown;
+
 	private State state;
 
 	private enum State
@@ -90,7 +94,7 @@ public class Encounter
 
 	}
 
-	public Encounter(World world, String text, Solution[] solutions , int chance , int distance)
+	public Encounter(World world, String text, Solution[] solutions , int chance , int distance , int priority , int cooldown)
 	{
 		this.world = world;
 		this.text = text;
