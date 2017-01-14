@@ -30,7 +30,7 @@ public class Player
 		this.name = name;
 
 	}
-	
+
 	public int totalCrewAbility()
 	{
 		return skill * (moral + 20) / 100;

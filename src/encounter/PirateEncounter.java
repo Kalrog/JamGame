@@ -52,7 +52,7 @@ public class PirateEncounter extends Encounter
 				{
 					EnterEncounter enterEncounter = new EnterEncounter(w, strength);
 					results = null;
-					
+
 				} else
 				{
 					results = new String[4];

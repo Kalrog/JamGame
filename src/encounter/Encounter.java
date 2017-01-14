@@ -125,21 +125,25 @@ public class Encounter
 
 	private void showResult(String[] results)
 	{
-		this.state = State.RESULT;
 
-		texts = new TextBox[results.length];
+        for (Button button : buttons) {
+            InputManager.removeButton(button);
+        }
 
-		for (Button button : buttons)
-		{
-			InputManager.removeButton(button);
-		}
+        if(results != null && results.length > 0) {
+            this.state = State.RESULT;
 
-		texts = fourSmallBoxes(results);
 
-		buttons = new Button[] { new Button(BUTTON_X, BUTTON_Y + 2 * BOX_DIFF, BUTTON_WIDTH, BUTTON_HEIGHT, "Continue",
-				new ContiniueButton()) };
+            texts = new TextBox[results.length];
 
-		InputManager.addButton(buttons[0]);
+            texts = fourSmallBoxes(results);
+
+            buttons = new Button[]{new Button(BUTTON_X, BUTTON_Y + 2 * BOX_DIFF, BUTTON_WIDTH, BUTTON_HEIGHT, "Continue",
+                    new ContiniueButton())};
+
+            InputManager.addButton(buttons[0]);
+        }
+        endEncounter();
 	}
 
 	private TextBox makeStandartSmallBox(int x, int y, TextBox box, String text)
