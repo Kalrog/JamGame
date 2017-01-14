@@ -45,7 +45,7 @@ public class PirateEncounter extends Encounter
 				w.player.changeMoral(-moralLoss);
 				results[2] = "Moral: -" + moralLoss;
 				int foodLoss = ((int) (Math.random() * 10) + 1);
-				w.player.changFood(-foodLoss);
+				w.player.changeFood(-foodLoss);
 				results[3] = "Food: -" + foodLoss;
 			} else
 			{
@@ -66,7 +66,7 @@ public class PirateEncounter extends Encounter
 					w.player.changeMoral(+moralGain);
 					results[2] = "Moral: +" + moralGain;
 					int foodGain = ((int) (Math.random() * 2) + 5);
-					w.player.changFood(+foodGain);
+					w.player.changeFood(+foodGain);
 					results[3] = "Food: +" + foodGain;
 				}
 
@@ -152,7 +152,7 @@ public class PirateEncounter extends Encounter
 				w.player.changeMoral(-moralLoss);
 				results[2] = "Moral: -" + moralLoss;
 				int foodLoss = ((int) (Math.random() * 6) + 2);
-				w.player.changFood(-foodLoss);
+				w.player.changeFood(-foodLoss);
 				results[3] = "Food: -" + foodLoss;
 			} else
 			{
@@ -165,7 +165,7 @@ public class PirateEncounter extends Encounter
 				w.player.changeMoral(+moralGain);
 				results[2] = "Moral: +" + moralGain;
 				int foodGain = ((int) (Math.random() * 4) + 1);
-				w.player.changFood(+foodGain);
+				w.player.changeFood(+foodGain);
 				results[3] = "Food: +" + foodGain;
 
 			}

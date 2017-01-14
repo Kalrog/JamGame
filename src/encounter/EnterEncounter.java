@@ -37,7 +37,7 @@ public class EnterEncounter extends Encounter
 				w.player.changeMoral(-moralLoss);
 				results[2] = "Moral: -" + moralLoss;
 				int foodLoss = ((int) (Math.random() * 10) + 4);
-				w.player.changFood(+foodLoss);
+				w.player.changeFood(+foodLoss);
 				results[3] = "Food: -" + foodLoss;
 				// skillLoss: calculates remaining crew in % and multiplies by
 				// current skill
@@ -55,7 +55,7 @@ public class EnterEncounter extends Encounter
 				w.player.changeMoral(+moralGain);
 				results[2] = "Moral: +" + moralGain;
 				int foodGain = ((int) (Math.random() * 10) + 20);
-				w.player.changFood(+foodGain);
+				w.player.changeFood(+foodGain);
 				results[3] = "Food: +" + foodGain;
 			}
 			return results;
@@ -85,7 +85,7 @@ public class EnterEncounter extends Encounter
 			w.player.changeMoral(+moralGain);
 			results[2] = "Moral: +" + moralGain;
 			int foodGain = ((int) (Math.random() * 2) + 5);
-			w.player.changFood(+foodGain);
+			w.player.changeFood(+foodGain);
 			results[3] = "Food: +" + foodGain;
 
 			return results;

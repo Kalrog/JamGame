@@ -25,7 +25,7 @@ public class StormEncounter extends Encounter
 			results[0] = "You travel around the Storm";
 			int foodLoss = 2;
 			results[1] = "Food: -" + foodLoss;
-			w.player.changFood(-foodLoss);
+			w.player.changeFood(-foodLoss);
 
 			return results;
 		}

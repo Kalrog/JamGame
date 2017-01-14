@@ -15,7 +15,7 @@ public class IslandEncounter extends Encounter
 	public IslandEncounter(World w, int distance)
 	{
 		super(w, AssetLoader.getRandomIslandTexture(),
-		        "Yout lookout spotted an Island in the distance/nExplore the isalnd?", new Solution[] {}, 5, distance,
+		        "Yout lookout spotted an Island in the distance/nExplore the island?", new Solution[] {}, 5, distance,
 		        1, 13);
 		this.w = w;
 	}
@@ -79,7 +79,7 @@ public class IslandEncounter extends Encounter
 		results[0] = "The Island has plenty of recources to scavenge";
 		int foodGain = ((int) (Math.random() * 4) + 7);
 		results[1] = "Food: +" + foodGain;
-		w.player.changFood(+foodGain);
+		w.player.changeFood(+foodGain);
 		int moralGain = ((int) (Math.random() * 4) + 5);
 		results[2] = "Moral: +" + moralGain;
 		w.player.changeMoral(+moralGain);
@@ -110,7 +110,7 @@ public class IslandEncounter extends Encounter
 			new TribeHostile(w).startEncounter();
 		} else
 		{
-			//new TribeFriendly(w).startEncounter;
+			new TribeFriendly(w).startEncounter();
 		}
 
 		return new String[]{ "You see a native Tribe living on the Island" };
