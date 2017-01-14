@@ -30,31 +30,31 @@ public class EnterEncounter extends Encounter
 				results = new String[5];
 				results[0] = "You entered the pirates but they defeated your crew";
 				int damage = ((int) (Math.random() * 15) + 5);
-				w.player.health -= damage;
+				w.player.setHealth(w.player.getHealth() - damage);
 				results[1] = "Health: -" + damage;
-				int moralloss = ((int) (Math.random() * 7) + 20);
-				w.player.moral -= moralloss;
-				results[2] = "Moral: -" + moralloss;
-				int foodloss = ((int) (Math.random() * 10) + 4);
-				w.player.food -= foodloss;
-				results[3] = "Food: -" + foodloss;
+				int moralLoss = ((int) (Math.random() * 7) + 20);
+				w.player.setMoral(w.player.getMoral() - moralLoss);
+				results[2] = "Moral: -" + moralLoss;
+				int foodLoss = ((int) (Math.random() * 10) + 4);
+				w.player.setFood(w.player.getFood() + foodLoss);
+				results[3] = "Food: -" + foodLoss;
 				// skillLoss: calculates remaining crew in % and multiplies by
 				// current skill
-				int skillLoss = (int) (w.player.skill * (Math.random() * 5 + 4) / 30.0);
-				w.player.skill -= skillLoss;
+				int skillLoss = (int) (w.player.getSkill() * (Math.random() * 5 + 4) / 30.0);
+				w.player.setSkill(w.player.getSkill()- skillLoss);
 				results[4] = "Skill: -" + skillLoss;
 			} else
 			{
 				results = new String[4];
 				results[0] = "You defeated the pirates and looted their cargo";
 				int damage = ((int) (Math.random() * 5) + 1);
-				w.player.health -= damage;
+				w.player.setHealth(w.player.getHealth() - damage);
 				results[1] = "Health: -" + damage;
 				int moralGain = ((int) (Math.random() * 7) + 20);
-				w.player.moral += moralGain;
+				w.player.setMoral(w.player.getMoral() + moralGain);
 				results[2] = "Moral: +" + moralGain;
 				int foodGain = ((int) (Math.random() * 10) + 20);
-				w.player.food += foodGain;
+				w.player.setFood(w.player.getFood() + foodGain);
 				results[3] = "Food: +" + foodGain;
 			}
 			return results;
@@ -81,10 +81,10 @@ public class EnterEncounter extends Encounter
 			w.player.setHealth(w.player.getHealth() - damage);
 			results[1] = "Health: -" + damage;
 			int moralGain = ((int) (Math.random() * 5) + 5);
-			w.player.moral += moralGain;
+			w.player.setMoral(w.player.getMoral() + moralGain);
 			results[2] = "Moral: +" + moralGain;
 			int foodGain = ((int) (Math.random() * 2) + 5);
-			w.player.food += foodGain;
+			w.player.setFood(w.player.getFood() + foodGain);
 			results[3] = "Food: +" + foodGain;
 
 			return results;

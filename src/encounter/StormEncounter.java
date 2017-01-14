@@ -60,13 +60,14 @@ public class StormEncounter extends Encounter
 				results[1] = "Condition: Seasickness";
 				int moralLoss = ((int) (Math.random() * 8) + 5);
 				results[2] = "Moral: -" + moralLoss;
-				w.player.moral -= moralLoss;
+				w.player.setMoral(w.player.getMoral() - moralLoss);
 				
 			}else{
 				results = new String[2];
 				results[0] = "You sail through the Strom and made it out without a problem";
 				int moralGain = ((int) (Math.random() * 8) + 5);
 				results[1] = "Moral: +:" + moralGain;
+				w.player.setMoral(w.player.getMoral() + moralGain);
 			}
 			
 			return results;
