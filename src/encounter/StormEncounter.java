@@ -58,10 +58,10 @@ public class StormEncounter extends Encounter
 			{
 				results = new String[3];
 				results[0] = "You sail through the Strom but your crew didn't take it so well";
-				w.player.condition = Condition.SEASICK;
+				w.player.addCondition(Condition.SEASICK);
 				int untilCured = 3;
 				RemoveCondition removeCondition = new RemoveCondition(w, "Your Crew overcame their seasickness",
-						untilCured);
+						untilCured, Condition.SEASICK);
 				results[1] = "Condition: Seasickness";
 				int moralLoss = ((int) (Math.random() * 8) + 5);
 				results[2] = "Moral: -" + moralLoss;

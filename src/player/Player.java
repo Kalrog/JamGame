@@ -1,5 +1,7 @@
 package player;
 
+import java.util.ArrayList;
+
 import assets.Texture;
 
 /**
@@ -14,10 +16,9 @@ public class Player
 
 	private int money, moral, food, skill, health, distance;
 
-	public Condition condition = null;
-
 	public Texture texture;
 
+	public ArrayList<Condition> conditions;
 
 	public enum Condition
 	{
@@ -40,6 +41,7 @@ public class Player
 		distance = 0;
 		food = 20;// <==filler :: not clear what units to use yet
 		this.name = name;
+		conditions = new ArrayList<>();
 
 	}
 
@@ -50,7 +52,7 @@ public class Player
 
 	public int getSkill()
 	{
-		if (condition == Condition.SEASICK)
+		if (conditions.contains(Condition.SEASICK))
 			return (int) (skill * 0.8);
 		else
 			return skill;
@@ -68,10 +70,10 @@ public class Player
 
 	public int getMoral()
 	{
-	    if(condition == Condition.ILL)
-	        return ((int) (moral * 0.6));
-	    else
-	        return moral;
+		if (conditions.contains(Condition.ILL))
+			return ((int) (moral * 0.6));
+		else
+			return moral;
 	}
 
 	public void changeMoral(int moral)
@@ -109,14 +111,14 @@ public class Player
 		this.distance += distance;
 	}
 
-	public Condition getCondition()
+	public void addCondition(Condition condition)
 	{
-		return condition;
+		conditions.add(condition);
 	}
 
-	public void setCondition(Condition condition)
+	public void removeCondition(Condition condition)
 	{
-		this.condition = condition;
+		conditions.remove(condition);
 	}
 
 	public void changeSkill(int skill)

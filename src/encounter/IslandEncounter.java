@@ -95,9 +95,9 @@ public class IslandEncounter extends Encounter
 		results[1] = "Moral: -" + moralLoss;
 		w.player.changeMoral(-moralLoss);
 		int untilCured = 6;
-		RemoveCondition removeCondition = new RemoveCondition(w, "Your Crew overcame their illness", untilCured);
+		RemoveCondition removeCondition = new RemoveCondition(w, "Your Crew overcame their illness", untilCured, Condition.ILL);
 		results[2] = "Condition: Illness";
-		w.player.condition = Condition.ILL;
+		w.player.addCondition(Condition.ILL);
 		return null;
 	}
 
