@@ -1,5 +1,7 @@
 package world;
 
+import java.util.ArrayList;
+
 import encounter.Encounter;
 import player.Player;
 
@@ -15,12 +17,16 @@ public class World
 	int difficulty;
 
 	Encounter[] encounters;
+	
+	private ArrayList<Encounter> activeEncounters;
 
 	public World(Player player, int difficulty)
 	{
 
 		this.player = player;
 		this.difficulty = difficulty;
+		activeEncounters = new ArrayList<>();
+		
 
 	}
 
@@ -36,6 +42,16 @@ public class World
 				player.distance++;
 			}
 		}
+	}
+
+	public void addEncounter(Encounter encounter)
+	{
+		activeEncounters.add(encounter);
+	}
+
+	public void removeEncounter(Encounter encounter)
+	{
+		activeEncounters.remove(encounter);
 	}
 
 	public int sumOfEncounterChance(Encounter[] encounters)

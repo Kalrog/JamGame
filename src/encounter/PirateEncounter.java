@@ -15,6 +15,7 @@ public class PirateEncounter extends Encounter
 	{
 		super(world, "You encounter a pirate ship",
 				new Solution[] { new FightSolution(strength), new runSolution(strength) });
+
 	}
 
 	static class FightSolution implements Solution
@@ -31,8 +32,7 @@ public class PirateEncounter extends Encounter
 		{
 			String[] results;
 			// Negative if Pirate win Positive if Player wins
-			int fightResult = ((int) (Math.random() * (w.player.skill * ((w.player.moral + 10) / 100) + strength)))
-					- strength;
+			int fightResult = ((int) (Math.random() * (w.player.totalCrewAbility() + strength))) - strength;
 			if (fightResult < 0)
 			{
 				results = new String[4];
@@ -48,8 +48,26 @@ public class PirateEncounter extends Encounter
 				results[3] = "Food: -" + foodloss;
 			} else
 			{
-				results = new String[1];
-				results[0] = "But YEEEEE";
+				if (w.player.skill > 50 && w.player.moral > 75 && Math.random() >= 0.5)
+				{
+					EnterEncounter enterEncounter = new EnterEncounter(w, strength);
+					results = null;
+					
+				} else
+				{
+					results = new String[4];
+					results[0] = "You defeated the pirates";
+					int damage = ((int) Math.random() * 5 + 1);
+					w.player.health -= damage;
+					results[1] = "Health: -" + damage;
+					int moralGain = ((int) Math.random() * 5 + 5);
+					w.player.moral += moralGain;
+					results[2] = "Moral: +" + moralGain;
+					int foodGain = ((int) Math.random() * 2 + 5);
+					w.player.food += foodGain;
+					results[3] = "Food: +" + foodGain;
+				}
+
 			}
 
 			return results;
@@ -81,10 +99,8 @@ public class PirateEncounter extends Encounter
 		{
 
 			String[] results;
-			skill = w.player.skill;
-			moral = w.player.moral;
 			int minRunChance = 30;
-			int maxRunChance = minRunChance + skill * (moral + 10) / 100;
+			int maxRunChance = minRunChance + w.player.totalCrewAbility();
 
 			if (ThreadLocalRandom.current().nextInt(0, maxRunChance + strength) > maxRunChance)
 			{

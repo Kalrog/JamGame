@@ -3,7 +3,11 @@ package encounter;
 import java.awt.Color;
 import java.awt.Graphics;
 
-import game.*;
+import game.Button;
+import game.ButtonCall;
+import game.Display;
+import game.InputManager;
+import game.TextBox;
 import world.World;
 
 /**
@@ -37,7 +41,7 @@ public class Encounter
 
 	private final int BOX_DIFF = BUTTON_HEIGHT + 16;
 
-	private World world;
+	protected World world;
 
 	private String text;
 
@@ -100,21 +104,22 @@ public class Encounter
 
 		texts = new TextBox[1];
 
-			if (solutions.length <= 3)
-				for (int x = 0; x < solutions.length; x++)
-				{
+		if (solutions.length <= 3)
+			for (int x = 0; x < solutions.length; x++)
+			{
 				buttons[x] = new Button(BUTTON_X, BUTTON_Y + x * BOX_DIFF, BUTTON_WIDTH, BUTTON_HEIGHT,
 						solutions[x].getText(), new SolutionButton(solutions[x]));
-				}
-			else if (solutions.length <= 5)
-				buttons = fourSmallButtons(solutions);
-			else if (solutions.length <= 7) 
-				buttons = sixSmallButtons(solutions);
+			}
+		else if (solutions.length <= 5)
+			buttons = fourSmallButtons(solutions);
+		else if (solutions.length <= 7) buttons = sixSmallButtons(solutions);
 
-			for (int x = 0; x < solutions.length; x++)
+		for (int x = 0; x < solutions.length; x++)
 			InputManager.addButton(buttons[x]);
 
 		texts[0] = new TextBox(TEXT_X, TEXT_Y, TEXT_WIDTH, TEXT_HEIGHT, text);
+
+		world.addEncounter(this);
 
 	}
 
@@ -152,6 +157,7 @@ public class Encounter
 	{
 		this.state = State.INACTIVE;
 		InputManager.removeButton(buttons[0]);
+		world.removeEncounter(this);
 	}
 
 	public void draw(Graphics g)

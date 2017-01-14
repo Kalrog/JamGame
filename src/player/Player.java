@@ -22,12 +22,18 @@ public class Player
 	public Player(String name)
 	{
 		health = 100;
-		moral = 50;
+		moral = 100;
 		money = 100;
+		skill = 100;
 		distance = 0;
 		food = 20;// <==filler :: not clear what units to use yet
 		this.name = name;
 
+	}
+	
+	public int totalCrewAbility()
+	{
+		return skill * (moral + 20) / 100;
 	}
 
 }
