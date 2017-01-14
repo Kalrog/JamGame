@@ -14,7 +14,7 @@ public class PirateEncounter extends Encounter
 	public PirateEncounter(World world, int strength)
 	{
 		super(world, "You encounter a pirate ship",
-				new Solution[] { new FightSolution(strength), new runSolution(strength) });
+				new Solution[] { new FightSolution(strength), new RunSolution(strength) });
 
 	}
 
@@ -40,12 +40,12 @@ public class PirateEncounter extends Encounter
 				int damage = ((int) (Math.random() * 15) + 5);
 				w.player.health -= damage;
 				results[1] = "Health: -" + damage;
-				int moralloss = ((int) (Math.random() * 5) + 5);
-				w.player.moral -= moralloss;
-				results[2] = "Moral: -" + moralloss;
-				int foodloss = ((int) (Math.random() * 10) + 1);
-				w.player.food -= foodloss;
-				results[3] = "Food: -" + foodloss;
+				int moralLoss = ((int) (Math.random() * 5) + 5);
+				w.player.moral -= moralLoss;
+				results[2] = "Moral: -" + moralLoss;
+				int foodLoss = ((int) (Math.random() * 10) + 1);
+				w.player.food -= foodLoss;
+				results[3] = "Food: -" + foodLoss;
 			} else
 			{
 				if (w.player.skill > 50 && w.player.moral > 75 && Math.random() >= 0.5)
@@ -81,12 +81,12 @@ public class PirateEncounter extends Encounter
 		}
 	}
 
-	static class runSolution implements Solution
+	static class RunSolution implements Solution
 	{
 
 		int strength;
 
-		public runSolution(int strength)
+		public RunSolution(int strength)
 		{
 			this.strength = strength;
 		}
@@ -105,7 +105,7 @@ public class PirateEncounter extends Encounter
 
 			if (ThreadLocalRandom.current().nextInt(0, maxRunChance + strength) > maxRunChance)
 			{
-				results = new runFight(strength).resolve(w);
+				results = new RunFight(strength).resolve(w);
 			} else
 			{
 				int moralGain;
@@ -126,12 +126,12 @@ public class PirateEncounter extends Encounter
 
 	}
 
-	static class runFight implements Solution
+	static class RunFight implements Solution
 	{
 
 		int strength;
 
-		public runFight(int strength)
+		public RunFight(int strength)
 		{
 			this.strength = strength;
 		}
@@ -149,12 +149,12 @@ public class PirateEncounter extends Encounter
 				int damage = ((int) (Math.random() * 11) + 3);
 				w.player.health -= damage;
 				results[1] = "Health: -" + damage;
-				int moralloss = ((int) (Math.random() * 8) + 3);
-				w.player.moral -= moralloss;
-				results[2] = "Moral: -" + moralloss;
-				int foodloss = ((int) (Math.random() * 6) + 2);
-				w.player.food -= foodloss;
-				results[3] = "Food: -" + foodloss;
+				int moralLoss = ((int) (Math.random() * 8) + 3);
+				w.player.moral -= moralLoss;
+				results[2] = "Moral: -" + moralLoss;
+				int foodLoss = ((int) (Math.random() * 6) + 2);
+				w.player.food -= foodLoss;
+				results[3] = "Food: -" + foodLoss;
 			} else
 			{
 				results = new String[4];

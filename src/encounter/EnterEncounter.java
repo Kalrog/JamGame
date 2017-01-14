@@ -7,15 +7,15 @@ public class EnterEncounter extends Encounter
 	public EnterEncounter(World world, int strength)
 	{
 		super(world, "Do you want to enter the pirates Ship?",
-				new Solution[] { new enterEvent(strength), new noFight() });
+				new Solution[] { new EnterEven(strength), new NoFight() });
 	}
 
-	static class enterEvent implements Solution
+	static class EnterEven implements Solution
 	{
 
 		int strength;
 
-		public enterEvent(int strength)
+		public EnterEven(int strength)
 		{
 			this.strength = strength;
 		}
@@ -67,7 +67,7 @@ public class EnterEncounter extends Encounter
 		}
 	}
 
-	static class noFight implements Solution
+	static class NoFight implements Solution
 	{
 
 		String[] results;

@@ -46,6 +46,7 @@ public class World
 			{
 				encounter.startEncounter();
 				player.distance++;
+				player.food--;
 			}
 		}
 	}

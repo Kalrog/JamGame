@@ -6,6 +6,7 @@ import assets.SoundPlayer;
 import encounter.Encounter;
 import encounter.PirateEncounter;
 import encounter.Solution;
+import encounter.StormEncounter;
 import player.Player;
 import world.World;
 
@@ -86,7 +87,7 @@ public class Game
 		 * "This is a test foar encounters", new Solution[] { new
 		 * testSolution(), new testSolution() });
 		 */
-		encounter = new PirateEncounter(world, 120);
+		encounter = new StormEncounter(world, 120);
 		encounter.startEncounter();
 
 	}

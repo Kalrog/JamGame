@@ -11,6 +11,13 @@ public class Player
 	String	name;
 
 	public int money , moral, food, skill, health , distance;
+	
+	public Condition condition = null;
+	
+	public enum Condition
+	{
+		SEASICK;
+	}
 
 
 	/**
@@ -21,6 +28,7 @@ public class Player
 	 */
 	public Player(String name)
 	{
+		
 		health = 100;
 		moral = 100;
 		money = 100;
