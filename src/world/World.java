@@ -112,7 +112,7 @@ public class World
             {
                 frame = 0;
                 player.changeDistance(+1);
-                player.changFood(-1);
+                player.changeFood(-1);
 
             }
         }
