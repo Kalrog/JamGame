@@ -1,8 +1,11 @@
 package player;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 import assets.Texture;
+import game.Display;
+import game.Game;
 
 /**
  * Manages player stats like health or skill
@@ -42,6 +45,8 @@ public class Player
 		food = 20;// <==filler :: not clear what units to use yet
 		this.name = name;
 		conditions = new ArrayList<>();
+		texture = new Texture("Assets/ship.png" , 119, 75);
+		texture.yShift = -10;
 
 	}
 
@@ -124,6 +129,11 @@ public class Player
 	public void changeSkill(int skill)
 	{
 		this.skill += skill;
+	}
+
+	public void draw(Graphics g)
+	{
+		texture.draw(g , Display.canvas.getWidth() - texture.width / 2,Game.SEE_LEVEL);
 	}
 
 }

@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 
 import encounter.Encounter;
+import game.Display;
 import player.Player;
 import player.Player.Condition;
 
@@ -23,8 +24,6 @@ public class World
     public Player player;
 
 	int size;
-
-    Condition currentCondition = player.condition;
 
 	Encounter[] encounters;
 
@@ -59,6 +58,12 @@ public class World
 
 	public void draw(Graphics g)
 	{
+		for(Encounter encounter : worldEncounters)
+		{
+			if(encounter.distance - player.getDistance() > Display.canvas.getWidth() + 50) break;
+			encounter.draw(g);
+		}
+		player.draw(g);
 		if (activeEncounters.size() > 0) activeEncounters.get(activeEncounters.size() - 1).draw(g);
 	}
 

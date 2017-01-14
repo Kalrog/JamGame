@@ -13,7 +13,7 @@ public class Texture
 
     BufferedImage image;
 
-    int width, height;
+    public int width, height, yShift;
 
     public Texture(BufferedImage image, int width, int height)
     {
@@ -38,7 +38,7 @@ public class Texture
 
     public void draw(Graphics g, int x, int y)
     {
-        g.drawImage(image, x - width / 2, y - height, null);
+        g.drawImage(image, x - width / 2, y - height + yShift, null);
     }
 
 }

@@ -215,7 +215,8 @@ public class Encounter
 
 			case INACTIVE:
 			{
-			    texture.draw(g,world.player.getDistance() - distance + Game.display.getWidth(), Game.SEE_LEVEL);
+				if(texture != null)
+			        texture.draw(g,world.player.getDistance() - distance + Game.display.getWidth(), Game.SEE_LEVEL);
 				break;
 			}
 
