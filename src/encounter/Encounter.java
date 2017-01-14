@@ -2,11 +2,11 @@ package encounter;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.Comparator;
 
 import game.Button;
 import game.ButtonCall;
 import game.Display;
-import game.InputManager;
 import game.TextBox;
 import world.World;
 
@@ -43,9 +43,9 @@ public class Encounter
 
 	protected World world;
 
-	private String text;
+	public String text;
 
-	private Solution[] solutions;
+	public Solution[] solutions;
 
 	private Button[] buttons;
 
@@ -127,7 +127,7 @@ public class Encounter
 
 		texts[0] = new TextBox(TEXT_X, TEXT_Y, TEXT_WIDTH, TEXT_HEIGHT, text);
 
-		world.addEncounter(this);
+		world.addActiveEncounter(this);
 
 	}
 
@@ -171,7 +171,7 @@ public class Encounter
 		this.state = State.INACTIVE;
 		buttons[0].dispose();
 		// InputManager.removeButton(buttons[0]);
-		world.removeEncounter(this);
+		world.removeActiveEncounter(this);
 	}
 
 	public void draw(Graphics g)
@@ -352,4 +352,15 @@ public class Encounter
 
 		return buttons;
 	}
+
+	public static Comparator<Encounter> getComparator(){
+	    return new Comparator<Encounter>()
+        {
+            @Override
+            public int compare(Encounter encounter, Encounter t1)
+            {
+                return encounter.distance - t1.distance;
+            }
+        };
+    }
 }
