@@ -2,6 +2,7 @@ package encounter;
 
 import java.util.concurrent.ThreadLocalRandom;
 
+import assets.AssetLoader;
 import game.Game;
 import world.World;
 
@@ -13,7 +14,7 @@ public class PirateEncounter extends Encounter
 
 	public PirateEncounter(World world, int strength, int distance)
 	{
-		super(world, "You encounter a pirate ship",
+		super(world, AssetLoader.getRandomPirateTexture(), "You encounter a pirate ship",
 				new Solution[] { new FightSolution(strength), new RunSolution(strength) }, 20, distance, 1, 5);
 
 	}

@@ -36,27 +36,27 @@ public class AssetLoader
         }
     }
 
-    public Texture getRandomIslandTexture()
+    public static Texture getRandomIslandTexture()
     {
         return randomTexture(islandTextures);
     }
 
-    public Texture getRandomCityTexture()
+    public static Texture getRandomCityTexture()
     {
         return randomTexture(cityTextures);
     }
 
-    public Texture getRandomPirateTexture()
+    public static Texture getRandomPirateTexture()
     {
         return randomTexture(pirateTextures);
     }
 
-    public Texture getRandomStormTexture()
+    public static Texture getRandomStormTexture()
     {
         return randomTexture(stormTextures);
     }
 
-    private Texture randomTexture(Texture[] textures)
+    private static Texture randomTexture(Texture[] textures)
     {
         int random = (int)(Math.random() * textures.length);
         return textures[random];

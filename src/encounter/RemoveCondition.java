@@ -10,7 +10,7 @@ public class RemoveCondition extends Encounter
 	
 	public RemoveCondition(World w, String text, int distance, Condition condition)
 	{
-		super(w, text, new Solution[] {}, 0, w.player.getDistance() + distance, 20, 0);
+		super(w,null, text, new Solution[] {}, 0, w.player.getDistance() + distance, 20, 0);
 		this.condition = condition;
 	}
 

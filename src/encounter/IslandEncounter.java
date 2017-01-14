@@ -2,6 +2,7 @@ package encounter;
 
 import java.util.concurrent.ThreadLocalRandom;
 
+import assets.AssetLoader;
 import player.Player.Condition;
 import world.World;
 
@@ -12,7 +13,7 @@ public class IslandEncounter extends Encounter
 
 	public IslandEncounter(World w, int distance)
 	{
-		super(w, "Yout lookout spotted an Island in the distance/nExplore the isalnd?", new Solution[] {}, 5, distance,
+		super(w, AssetLoader.getRandomIslandTexture(), "Yout lookout spotted an Island in the distance/nExplore the isalnd?", new Solution[] {}, 5, distance,
 				1, 13);
 		this.w = w;
 	}

@@ -1,5 +1,6 @@
 package encounter;
 
+import assets.AssetLoader;
 import player.Player.Condition;
 import world.World;
 
@@ -8,7 +9,7 @@ public class StormEncounter extends Encounter
 
 	public StormEncounter(World world, int strength, int distance)
 	{
-		super(world, "You see a Storm brewing up in the distance",
+		super(world, AssetLoader.getRandomStormTexture(), "You see a Storm brewing up in the distance",
 				new Solution[] { new AvoidStorm(), new ThroughStorm(strength) }, 20, distance, 1, 5);
 	}
 
