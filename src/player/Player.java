@@ -14,8 +14,6 @@ public class Player
 
 	public Condition condition = null;
 
-	public double modifier = 1;
-
 	public enum Condition
 	{
 		SEASICK;
@@ -42,12 +40,15 @@ public class Player
 
 	public int totalCrewAbility()
 	{
-		return skill * (moral + 20) / 100;
+		return getSkill() * (getMoral() + 20) / 100;
 	}
-	
+
 	public int getSkill()
 	{
-		return (int) (modifier * skill);
+		if (condition == Condition.SEASICK)
+			return (int) (skill * 0.8);
+		else
+			return skill;
 	}
 
 	public int getMoney()
@@ -108,16 +109,6 @@ public class Player
 	public void setCondition(Condition condition)
 	{
 		this.condition = condition;
-	}
-
-	public double getModifier()
-	{
-		return modifier;
-	}
-
-	public void setModifier(double modifier)
-	{
-		this.modifier = modifier;
 	}
 
 	public void setSkill(int skill)
