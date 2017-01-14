@@ -53,6 +53,8 @@ public class Encounter
 
 	public int chance;
 
+	public int distance;
+
 	private State state;
 
 	private enum State
@@ -88,12 +90,14 @@ public class Encounter
 
 	}
 
-	public Encounter(World world, String text, Solution[] solutions)
+	public Encounter(World world, String text, Solution[] solutions , int chance , int distance)
 	{
 		this.world = world;
 		this.text = text;
 		this.solutions = solutions;
 		this.state = State.INACTIVE;
+		this.chance = chance;
+		this.distance = distance;
 	}
 
 	public void startEncounter()
