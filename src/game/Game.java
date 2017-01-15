@@ -3,6 +3,7 @@ package game;
 import java.awt.Graphics;
 
 import assets.AssetLoader;
+import encounter.ContinueEncounter;
 import encounter.Encounter;
 import player.Player;
 import world.World;
@@ -44,28 +45,18 @@ public class Game
 
 	public static void main(String[] args)
 	{
-	    AssetLoader.loadTextures();
+		AssetLoader.loadTextures();
 		init();
-		run(1 / (double)FPS);
+		run(1 / (double) FPS);
 	}
 
 	// test class
-	/*static class testSolution implements Solution
-	{
-
-		@Override
-		public String[] resolve(World w)
-		{
-			return new String[] { "Flavor", "TEST1", "REKT2", "NOW3", "AND4" };
-		}
-
-		@Override
-		public String getText()
-		{
-			return "Ayy Lmao";
-		}
-
-	}*/
+	/*
+	 * static class testSolution implements Solution {
+	 * @Override public String[] resolve(World w) { return new String[] {
+	 * "Flavor", "TEST1", "REKT2", "NOW3", "AND4" }; }
+	 * @Override public String getText() { return "Ayy Lmao"; } }
+	 */
 
 	// end of test class
 
@@ -87,7 +78,6 @@ public class Game
 		 * "This is a test foar encounters", new Solution[] { new
 		 * testSolution(), new testSolution() });
 		 */
-		
 
 	}
 
@@ -146,7 +136,7 @@ public class Game
 
 	private static void update()
 	{
-		//world.updateAndRender();
+		// world.updateAndRender();
 		// TODO updateAndRender world, player, encounter
 	}
 
@@ -165,18 +155,20 @@ public class Game
 		}
 	}
 
-	//static Button button = new Button(200, 200, 100, 100, "Herro", new exitButton());
+	// static Button button = new Button(200, 200, 100, 100, "Herro", new
+	// exitButton());
 
-	//static TextBox box = new TextBox(0, 0, 200, 100, "Hello this is a test for my textbox");
+	// static TextBox box = new TextBox(0, 0, 200, 100, "Hello this is a test
+	// for my textbox");
 
 	private static void render()
 	{
-            g = display.getBackBuffer();
-            world.updateAndRender(g);
-            //world.draw(g);
-            // button.draw(g);
-            // box.draw(g);
-            display.flipBuffers();
-            // TODO render player(ship n stuff),world etc.
+		g = display.getBackBuffer();
+		world.updateAndRender(g);
+		// world.draw(g);
+		// button.draw(g);
+		// box.draw(g);
+		display.flipBuffers();
+		// TODO render player(ship n stuff),world etc.
 	}
 }

@@ -136,7 +136,8 @@ public class IslandEncounter extends Encounter
 
 		if (Math.random() >= 0.5)
 		{
-			encounter = new TribeFriendly(w);
+			//encounter = new TribeFriendly(w);
+			encounter = new ShopEncounter(w, null, "They aproach you and wish to Trade", null);
 		} else
 		{
 			encounter = new TribeHostile(w, (int) (w.player.totalCrewAbility() * (Math.random() + 0.5)));

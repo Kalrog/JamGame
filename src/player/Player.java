@@ -4,6 +4,8 @@ import java.awt.*;
 import java.util.ArrayList;
 
 import assets.Texture;
+import encounter.ContinueEncounter;
+import encounter.DeathEncounter;
 import game.Display;
 import game.Game;
 
@@ -42,16 +44,16 @@ public class Player
 	public Player(String name)
 	{
 
-        health = 10;
-        moral = 10;
-        money = 10;
-        skill = 10;
-        distance = 0;
-        food = 20;// <==filler :: not clear what units to use yet
-        this.name = name;
-        conditions = new ArrayList<>();
-        texture = new Texture("Assets/ship.png", 119, 75);
-        texture.yShift = -10;
+		health = 100;
+		moral = 10;
+		money = 10;
+		skill = 10;
+		distance = 0;
+		food = 20;// <==filler :: not clear what units to use yet
+		this.name = name;
+		conditions = new ArrayList<>();
+		texture = new Texture("Assets/ship.png", 119, 75);
+		texture.yShift = -10;
 
 	}
 

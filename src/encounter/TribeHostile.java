@@ -93,7 +93,9 @@ public class TribeHostile extends Encounter
 				int foodGain = (int) (Math.random() * 5 + 5);
 				results[3] = "Food: +" + foodGain;
 				w.player.changeFood(+foodGain);
-				results[4] = "Resources: +";// TODO add resources
+				int rawMaterialsGain = (int) (Math.random() * 5 + 5);
+				results[4] = "Resources: +" + rawMaterialsGain;// TODO add resources
+				w.player.changeRawMaterial(+rawMaterialsGain);
 			}
 			return results;
 		}

@@ -77,8 +77,9 @@ public class World
 
         // new BuyEncounter(this, "Buy some stuff" , new
         // int[]{10,10,10}).startEncounter();
-
-        new ShopEncounter(this, null, "Ay a shop at the Port", null).startEncounter();
+        //new ShopEncounter(this, null, "Ay a shop at the Port", null).startEncounter();
+        
+		new ContinueEncounter(this, new String[] { "Ayy shitty Game we made" }).startEncounter();
 
     }
 
@@ -170,6 +171,10 @@ public class World
 
     public void updateAndRender(Graphics g)
     {
+		if (player.getHealth() < 0){
+			new DeathEncounter(this).startEncounter();
+		}
+    	
         if (activeEncounters.size() == 0)
         {
 

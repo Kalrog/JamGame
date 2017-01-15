@@ -60,7 +60,7 @@ public class StormEncounter extends Encounter
 				results = new String[3];
 				results[0] = "You sail through the Strom but your crew didn't take it so well";
 				w.player.addCondition(Condition.SEASICK);
-				int dist = w.player.getDistance() + 300;
+				int dist = w.player.getDistance() + 1200;
 				RemoveCondition remove = new RemoveCondition(w, "Your Crew overcame their seasickness",
 						dist, Condition.SEASICK);
 				w.addWorldEncounter(remove);
