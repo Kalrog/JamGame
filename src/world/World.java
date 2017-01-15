@@ -7,9 +7,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 import assets.AssetLoader;
-import encounter.Encounter;
-import encounter.IslandEncounter;
-import encounter.PirateEncounter;
+import encounter.*;
 import game.Display;
 import game.Game;
 import player.Player;
@@ -74,6 +72,8 @@ public class World
         }
 
         worldEncounters.removeAll(removalList);
+
+       //new BuyEncounter(this, "Buy some stuff" , new int[]{10,10,10}).startEncounter();
 
     }
 
@@ -205,13 +205,13 @@ public class World
                 if (encounter instanceof IslandEncounter)
                 {
                     Encounter result = new Encounter(this, encounter.texture.clone(), encounter.text, encounter.solutions, 0, worldDistance, encounter.priority, encounter.cooldown);
-                    result.texture.setYShift((int) (Math.random() * -130.0 ));
+                    result.texture.setYShift((int) (Math.random() * -120.0  + 10));
                     return result;
                 }
                 if (encounter instanceof PirateEncounter)
                 {
                     Encounter result = new Encounter(this, encounter.texture.clone(), encounter.text, encounter.solutions, 0, worldDistance, encounter.priority, encounter.cooldown);
-                    result.texture.setYShift((int) (Math.random() * -130.0 ));
+                    result.texture.setYShift((int) (Math.random() * -120.0 + 10));
                     return result;
                 }
                 return new Encounter(this, encounter.texture.clone(), encounter.text, encounter.solutions, 0, worldDistance, encounter.priority, encounter.cooldown);

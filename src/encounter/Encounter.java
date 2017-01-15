@@ -82,7 +82,7 @@ public class Encounter
 		}
 	}
 
-	class ContiniueButton implements ButtonCall
+	class ContinueButton implements ButtonCall
 	{
 
 		@Override
@@ -120,7 +120,7 @@ public class Encounter
 			for (int x = 0; x < solutions.length; x++)
 			{
 				buttons[x] = new Button(BUTTON_X, BUTTON_Y + x * BOX_DIFF, BUTTON_WIDTH, BUTTON_HEIGHT,
-						solutions[x].getText(), new SolutionButton(solutions[x]));
+						solutions[x].getText(), getSolutionButton(solutions[x]));
 			}
 		else if (solutions.length <= 5)
 			buttons = fourSmallButtons(solutions);
@@ -152,7 +152,7 @@ public class Encounter
 			texts = fourSmallBoxes(results);
 
 			buttons = new Button[] { new Button(BUTTON_X, BUTTON_Y + 2 * BOX_DIFF, BUTTON_WIDTH, BUTTON_HEIGHT,
-					"Continue", new ContiniueButton()) };
+					"Continue", new ContinueButton()) };
 
 			// InputManager.addButton(buttons[0]);
 		} else
@@ -167,7 +167,7 @@ public class Encounter
 	private Button makeStandartSmallButton(int x, int y, Solution solution)
 	{
 		return new Button(x, y, BUTTON_WIDTH / 2 - BOX_DIFF / 4, BUTTON_HEIGHT, solution.getText(),
-				new SolutionButton(solution));
+				getSolutionButton(solution));
 	}
 
 	private void endEncounter()
@@ -378,4 +378,9 @@ public class Encounter
 			}
 		};
 	}
+
+	protected ButtonCall getSolutionButton(Solution solution)
+    {
+        return new SolutionButton(solution);
+    }
 }
