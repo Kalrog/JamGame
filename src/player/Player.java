@@ -25,7 +25,7 @@ public class Player
 
 	public enum Condition
 	{
-		SEASICK, ILL;
+		SEASICK, ILL, BLESSED;
 	}
 
 	/**
@@ -45,7 +45,7 @@ public class Player
 		food = 20;// <==filler :: not clear what units to use yet
 		this.name = name;
 		conditions = new ArrayList<>();
-		texture = new Texture("Assets/ship.png" , 119, 75);
+		texture = new Texture("Assets/ship.png", 119, 75);
 		texture.yShift = -10;
 
 	}
@@ -57,7 +57,9 @@ public class Player
 
 	public int getSkill()
 	{
-		if (conditions.contains(Condition.SEASICK))
+		if (conditions.contains(Condition.BLESSED))
+			return (int) (skill * 2);
+		else if (conditions.contains(Condition.SEASICK))
 			return (int) (skill * 0.8);
 		else
 			return skill;
@@ -133,7 +135,7 @@ public class Player
 
 	public void draw(Graphics g)
 	{
-		texture.draw(g , Display.canvas.getWidth() - texture.width/2 - 20,Game.SEE_LEVEL);
+		texture.draw(g, Display.canvas.getWidth() - texture.width / 2 - 20, Game.SEE_LEVEL);
 	}
 
 }

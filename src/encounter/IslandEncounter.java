@@ -1,8 +1,6 @@
 
 package encounter;
 
-import java.util.concurrent.ThreadLocalRandom;
-
 import assets.AssetLoader;
 import player.Player.Condition;
 import world.World;
@@ -15,32 +13,48 @@ public class IslandEncounter extends Encounter
 	public IslandEncounter(World w, int distance)
 	{
 		super(w, AssetLoader.getRandomIslandTexture(),
-		        "Your lookout spotted an island in the distance/nExplore the island?", new Solution[] {new goIsland(),new leaveIsland()}, 5, distance,
-		        1, 300);
+				"Your lookout spotted an island in the distance/nExplore the island?", null, 5, distance, 1, 300);
+		this.solutions = new Solution[] { new goIsland(this), new leaveIsland() };
 		this.w = w;
 	}
 
 	static class goIsland implements Solution
 	{
 
+		Encounter e;
+
+		public goIsland(Encounter e)
+		{
+			this.e = e;
+		}
+
 		String[] results;
 
 		@Override
 		public String[] resolve(World w)
 		{
-			int randome = ThreadLocalRandom.current().nextInt(0, 3);
+			int randome = 5;// ThreadLocalRandom.current().nextInt(0, 3);
 
-			switch (randome) {
-			case 0:
-				results = manyRecources(); break;
-			case 1:
-				results = disease(); break;
-			case 2:
-				results = tribe(); break;
-				/*
-				 * case 3: results = shark(); case 4: results = volcano(); case
-				 * 5: results = mysticalTemple();
-				 */
+			switch (randome)
+			{
+				case 0:
+					results = manyRecources();
+					break;
+				case 1:
+					results = disease();
+					break;
+				case 2:
+					results = tribe();
+					break;
+				case 3:
+					results = shark();
+					break;
+				case 4:
+					results = volcano();
+					break;
+				case 5:
+					results = mysticalTemple(e);
+					break;
 			}
 
 			return results;
@@ -96,15 +110,29 @@ public class IslandEncounter extends Encounter
 		w.player.changeMoral(-moralLoss);
 		int untilCured = 6;
 		RemoveCondition removeCondition = new RemoveCondition(w, "Your Crew overcame their illness", untilCured,
-		        Condition.ILL);
+				Condition.ILL);
 		results[2] = "Condition: Illness";
 		w.player.addCondition(Condition.ILL);
 		return results;
 	}
 
+	private static String[] shark()
+	{
+		String[] results = new String[3];
+		results[0] = "Your crew tries to reach the Island but were atacked by sharks";
+		int skillLoss = (int) (w.player.getSkill() * (Math.random() * 5 + 3) / 30.0);
+		w.player.changeSkill(-skillLoss);
+		results[1] = "Skill: -" + skillLoss;
+		int moralLoss = (int) (Math.random() * 5 + 5);
+		results[2] = "Moral; -" + moralLoss;
+		w.player.changeMoral(-moralLoss);
+
+		return results;
+	}
+
 	private static String[] tribe()
-	{	
-		
+	{
+
 		if (Math.random() >= 0.5)
 		{
 			new TribeHostile(w).startEncounter();
@@ -113,7 +141,49 @@ public class IslandEncounter extends Encounter
 			new TribeFriendly(w).startEncounter();
 		}
 
-		return new String[]{ "You see a native Tribe living on the Island" };
+		return new String[] { "You see a native Tribe living on the Island" };
+	}
+
+	private static String[] volcano()
+	{
+
+		String[] results = new String[3];
+		results[0] = "As yor crew explores the Island a volcano errupts/n and many people of your crew lose their lives";
+		int skillLoss = (int) (w.player.getSkill() * (Math.random() * 5 + 4) / 30.0);
+		w.player.changeSkill(-skillLoss);
+		results[1] = "Skill: -" + skillLoss;
+		int moralLoss = (int) (Math.random() * 6 + 7);
+		w.player.changeMoral(-moralLoss);
+		results[2] = "Moral; -" + moralLoss;
+		int healthLoss = (int) (Math.random() * 6 + 7);
+		w.player.changeHealth(-healthLoss);
+		results[3] = "Health: -" + healthLoss;
+
+		return results;
+	}
+
+	private static String[] mysticalTemple(Encounter e)
+	{
+		String[] results = new String[3];
+		results[0] = "You find an ancient temple ruin/nand your crew is blessed by it's godly power";
+		RemoveCondition removeCondition = new RemoveCondition(w, "Your blessing wore of", 10, Condition.BLESSED);
+		if (w.player.conditions.contains(Condition.ILL))
+		{
+			w.getActiveEncounters();
+			w.player.removeCondition(Condition.ILL);
+		}
+
+		if (w.player.conditions.contains(Condition.SEASICK)) w.player.removeCondition(Condition.SEASICK);
+		w.player.addCondition(Condition.BLESSED);
+		results[1] = "Condition: Blessed";
+		int moralGain = (int) (Math.random() * 5 + 7);
+		results[2] = "Moral: +" + moralGain;
+		w.player.changeMoral(+moralGain);
+
+		Encounter encounter = new ContinueEncounter(w, results);
+		encounter.startEncounter();
+
+		return manyRecources();
 	}
 
 }
