@@ -1,11 +1,12 @@
 package world;
 
-import java.awt.Graphics;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import assets.AssetLoader;
 import encounter.Encounter;
 import encounter.IslandEncounter;
 import game.Display;
@@ -20,9 +21,11 @@ public class World
 {
     private static final int NO_ENCOUNTER_CHANCE = 500;
 
-    private static final int FRAMES_PER_UPDATE = 100;
+    private static final int FRAMES_PER_UPDATE = 2;
 
     int frame;
+
+    int wave;
 
     public Player player;
 
@@ -36,13 +39,12 @@ public class World
 
     private LinkedList<Encounter> inactiveEncounters;
 
-    boolean render;
-
     public World(Player player, int size)
     {
 
         encounters = new Encounter[]{new IslandEncounter(this, 0)};
         this.player = player;
+        wave = 0;
         this.size = size;
         frame = 0;
         activeEncounters = new LinkedList<>();
@@ -75,9 +77,13 @@ public class World
 
     public void draw(Graphics g)
     {
+        g.clearRect(0, 0, Game.WIDTH, Game.HEIGHT);
+        for(int waveNum = 0; waveNum <= 40; waveNum++){
+            AssetLoader.wave.draw(g, wave + ((waveNum % 2) * 45) % 90 + AssetLoader.wave.width / 2 - 135, 180 + waveNum * 8);
+        }
         for (Encounter encounter : worldEncounters)
         {
-            if (!(player.getDistance() - encounter.distance + Display.canvas.getWidth() > -30 && player.getDistance() - encounter.distance + Display.canvas.getWidth() < Display.canvas.getWidth() + 30))
+            if (!(player.getDistance() - encounter.distance + Display.canvas.getWidth() > -60 && player.getDistance() - encounter.distance + Display.canvas.getWidth() < Display.canvas.getWidth() + 60))
             {
                 break;
             }
@@ -94,7 +100,7 @@ public class World
         if (activeEncounters.size() > 0) activeEncounters.get(activeEncounters.size() - 1).draw(g);
     }
 
-    public void update()
+    public void updateAndRender(Graphics g)
     {
         if (activeEncounters.size() == 0)
         {
@@ -111,10 +117,15 @@ public class World
             if (frame > FRAMES_PER_UPDATE)
             {
                 frame = 0;
+                draw(g);
                 player.changeDistance(+1);
                 player.changeFood(-1);
+                wave++;
+                wave %=90;
 
             }
+        }else{
+            draw(g);
         }
     }
 
@@ -187,7 +198,7 @@ public class World
                 if (encounter instanceof IslandEncounter)
                 {
                     Encounter result = new Encounter(this, encounter.texture.clone(), encounter.text, encounter.solutions, 0, worldDistance, encounter.priority, encounter.cooldown);
-                    result.texture.setYShift((int) (Math.random() * 100.0 - 50.0));
+                    result.texture.setYShift((int) (Math.random() * -130.0 ));
                     return result;
                 }
                 return new Encounter(this, encounter.texture.clone(), encounter.text, encounter.solutions, 0, worldDistance, encounter.priority, encounter.cooldown);

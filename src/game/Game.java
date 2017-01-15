@@ -3,11 +3,7 @@ package game;
 import java.awt.Graphics;
 
 import assets.AssetLoader;
-import assets.SoundPlayer;
 import encounter.Encounter;
-import encounter.PirateEncounter;
-import encounter.Solution;
-import encounter.StormEncounter;
 import player.Player;
 import world.World;
 
@@ -31,7 +27,7 @@ public class Game
 
 	public static boolean running;
 
-	public static final int FPS = 30;
+	public static final int FPS = 120;
 
 	public static final int HEIGHT = 480;
 
@@ -50,7 +46,7 @@ public class Game
 	{
 	    AssetLoader.loadTextures();
 		init();
-		run(1 / FPS);
+		run(1 / (double)FPS);
 	}
 
 	// test class
@@ -111,18 +107,18 @@ public class Game
 			double currTime = (double) System.nanoTime() / 1000000000.0;
 			if (currTime >= nextTime)
 			{
-				// assign the time for the next update
+				// assign the time for the next updateAndRender
 				update();
 				nextTime += delta;
 				render();
 			} else
 			{
 				// calculate the time to sleep
-				int sleepTime = (int) (200.0 * (nextTime - currTime));
+				int sleepTime = (int) (1000.0 * (nextTime - currTime));
 				// sanity check
 				if (sleepTime > 0)
 				{
-					// sleep until the next update
+					// sleep until the next updateAndRender
 					try
 					{
 						Thread.sleep(sleepTime);
@@ -150,8 +146,8 @@ public class Game
 
 	private static void update()
 	{
-		world.update();
-		// TODO update world, player, encounter
+		//world.updateAndRender();
+		// TODO updateAndRender world, player, encounter
 	}
 
 	/**
@@ -175,14 +171,12 @@ public class Game
 
 	private static void render()
 	{
-
-		g = display.getBackBuffer();
-		g.clearRect(0, 0, WIDTH, HEIGHT);
-		world.draw(g);
-		// button.draw(g);
-		// box.draw(g);
-		display.flipBuffers();
-		// TODO render player(ship n stuff),world etc.
-
+            g = display.getBackBuffer();
+            world.updateAndRender(g);
+            //world.draw(g);
+            // button.draw(g);
+            // box.draw(g);
+            display.flipBuffers();
+            // TODO render player(ship n stuff),world etc.
 	}
 }

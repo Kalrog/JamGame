@@ -7,7 +7,7 @@ package assets;
  */
 public class AssetLoader
 {
-    public static final String[] ISLAND_TEXTURES = new String[] {"Assets/Island.png:131:103"};
+    public static final String[] ISLAND_TEXTURES = new String[] {"Assets/Island.png:131:103","Assets/IslandsHuts.png:131:103"};
     public static final String[] CITY_TEXTURES = new String[] {};
     public static final String[] PIRATE_TEXTURES = new String[] {};
     public static final String[] STORM_TEXTURES = new String[] {};
@@ -16,6 +16,8 @@ public class AssetLoader
     public static Texture[] cityTextures;
     public static Texture[] pirateTextures;
     public static Texture[] stormTextures;
+
+    public static Texture wave = new Texture("Assets/Waves.png" ,780 ,29);
 
     public static void loadTextures()
     {

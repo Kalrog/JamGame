@@ -36,8 +36,10 @@ public class Button
 
     public void draw(Graphics g)
     {
+        g.setColor(Color.DARK_GRAY);
+        g.fillRoundRect(rect.x+5, rect.y+5, rect.width, rect.height,15,15);
         g.setColor(Color.ORANGE);
-        g.fillRect(rect.x, rect.y, rect.width, rect.height);
+        g.fillRoundRect(rect.x, rect.y, rect.width, rect.height,15,15);
         g.setColor(Color.BLACK);
         g.drawString(text, rect.x + ((rect.width - g.getFontMetrics().stringWidth(text)) / 2), rect.y + rect.height / 2);
     }
