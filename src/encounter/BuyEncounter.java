@@ -1,5 +1,6 @@
 package encounter;
 
+import assets.SoundPlayer;
 import game.ButtonCall;
 import player.Player;
 import world.World;
@@ -37,8 +38,14 @@ public class BuyEncounter extends Encounter
             {
                 w.player.changeMoney(-price);
                 w.player.changeResource(resourceType, +1);
-                encounter.text = "Bought 1 " + Player.getResourceName(resourceType);
-
+                encounter.texts[0].text = "Bought 1 " + Player.getResourceName(resourceType);
+                try
+                {
+                    SoundPlayer.playSound("Assets/Audio/BoughtItem.wav");
+                }catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
             }
             return null;
         }

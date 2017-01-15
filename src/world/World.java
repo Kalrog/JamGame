@@ -1,18 +1,18 @@
 package world;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.LinkedList;
+import java.util.*;
 
 import assets.AssetLoader;
+import assets.Texture;
 import encounter.*;
 import game.Display;
 import game.Game;
 import player.Player;
 import player.Player.Condition;
 import sun.awt.image.ImageWatched;
+
+import javax.xml.soap.Text;
 
 /**
  * Created by jonathan on 13.01.17.
@@ -38,6 +38,8 @@ public class World
     private LinkedList<Encounter> activeEncounters;
 
     private LinkedList<Encounter> inactiveEncounters;
+
+    private LinkedList<Sprite> sprites;
 
     public World(Player player, int size)
     {
@@ -77,15 +79,44 @@ public class World
 
     }
 
+    class Sprite
+    {
+        Texture texture;
+        int x,y;
+        public Sprite(Texture texture,int x,int y)
+        {
+            this.texture = texture;
+            this.x = x;
+            this.y = y;
+        }
+        public Comparator<Sprite> getComparator()
+        {
+            return new Comparator<Sprite>()
+            {
+                @Override
+                public int compare(Sprite sprite, Sprite t1)
+                {
+                    return (sprite.y +  sprite.texture.yShift) - (t1.y + t1.texture.yShift);
+                }
+            };
+        }
+        public void draw(Graphics g)
+        {
+            texture.draw(g,x,y);
+        }
+
+    }
     public void draw(Graphics g)
     {
+        sprites = new LinkedList<>();
         g.clearRect(0, 0, Game.WIDTH, Game.HEIGHT);
-        for(int waveNum = 0; waveNum <= 40; waveNum++){
-            AssetLoader.wave.draw(g, wave + ((waveNum % 2) * 45) % 90 + AssetLoader.wave.width / 2 - 135, 180 + waveNum * 8);
+        for(int waveNum = 0; waveNum <= 30; waveNum++){
+            sprites.add(new Sprite(AssetLoader.wave,wave + ((waveNum % 6) * 15) % 90 + AssetLoader.wave.width / 2 - 150,180 + waveNum * 12));
+            //AssetLoader.wave.draw(g, wave + ((waveNum % 6) * 15) % 90 + AssetLoader.wave.width / 2 - 150, 180 + waveNum * 12);
         }
         for (Encounter encounter : worldEncounters)
         {
-            if (!(player.getDistance() - encounter.distance + Display.canvas.getWidth() > -60 && player.getDistance() - encounter.distance + Display.canvas.getWidth() < Display.canvas.getWidth() + 60))
+            if (!(player.getDistance() - encounter.distance + Display.canvas.getWidth() > -100 && player.getDistance() - encounter.distance + Display.canvas.getWidth() < Display.canvas.getWidth() + 100))
             {
                 break;
             }
@@ -94,8 +125,8 @@ public class World
         }
         for (Encounter encounter : inactiveEncounters)
         {
-            if (!(player.getDistance() - encounter.distance + Display.canvas.getWidth() > -30 && player.getDistance() - encounter.distance + Display.canvas.getWidth() < Display.canvas.getWidth() + 30))
-                break;
+            if (!(player.getDistance() - encounter.distance + Display.canvas.getWidth() > -100 && player.getDistance() - encounter.distance + Display.canvas.getWidth() < Display.canvas.getWidth() + 100))
+                inactiveEncounters.remove(encounter);
             encounter.draw(g);
         }
         player.draw(g);
@@ -205,13 +236,22 @@ public class World
                 if (encounter instanceof IslandEncounter)
                 {
                     Encounter result = new Encounter(this, encounter.texture.clone(), encounter.text, encounter.solutions, 0, worldDistance, encounter.priority, encounter.cooldown);
-                    result.texture.setYShift((int) (Math.random() * -120.0  + 10));
+                    int shift = (int) (Math.random() * -220.0 + 100);
+                    if (shift > 0)
+                        shift += 10;
+                    else
+                        shift -= 10;
+                    result.texture.setYShift(shift);
                     return result;
                 }
                 if (encounter instanceof PirateEncounter)
                 {
                     Encounter result = new Encounter(this, encounter.texture.clone(), encounter.text, encounter.solutions, 0, worldDistance, encounter.priority, encounter.cooldown);
-                    result.texture.setYShift((int) (Math.random() * -120.0 + 10));
+                    int shift = (int) (Math.random() * -220.0 + 100);
+                    if (shift > 0)
+                        shift += 10;
+                    else shift -= 10;
+                    result.texture.setYShift(shift);
                     return result;
                 }
                 return new Encounter(this, encounter.texture.clone(), encounter.text, encounter.solutions, 0, worldDistance, encounter.priority, encounter.cooldown);

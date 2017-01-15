@@ -1,5 +1,6 @@
 package encounter;
 
+import assets.SoundPlayer;
 import game.ButtonCall;
 import player.Player;
 import world.World;
@@ -33,12 +34,18 @@ public class SellEncounter extends Encounter
         @Override
         public String[] resolve(World w)
         {
-            System.out.print("Got input");
             if (w.player.getResource(resourceType) > 0)
             {
                 w.player.changeMoney(+price);
                 w.player.changeResource(resourceType, -1);
-                encounter.text = "Sold 1 " + Player.getResourceName(resourceType);
+                encounter.texts[0].text = "Sold 1 " + Player.getResourceName(resourceType);
+                try
+                {
+                    SoundPlayer.playSound("Assets/Audio/BoughtItem.wav");
+                }catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
 
             }
             return null;

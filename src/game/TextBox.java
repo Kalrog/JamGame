@@ -11,7 +11,7 @@ public class TextBox
 
 	public Rectangle rect;
 
-	String text;
+	public String text;
 
 	String[] textlines;
 

@@ -47,9 +47,9 @@ public class Encounter
 
 	public Solution[] solutions;
 
-	private Button[] buttons;
+	protected Button[] buttons;
 
-	private TextBox[] texts;
+    protected TextBox[] texts;
 
 	public int chance;
 
