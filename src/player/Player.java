@@ -45,9 +45,9 @@ public class Player
 	{
 
 		health = 100;
-		moral = 10;
-		money = 10;
-		skill = 10;
+		moral = 70;
+		money = 50;
+		skill = 30;
 		distance = 0;
 		food = 20;// <==filler :: not clear what units to use yet
 		this.name = name;
@@ -103,7 +103,13 @@ public class Player
 
 	public void changeFood(int food)
 	{
-		this.food += food;
+	    if(this.food == 0 && food > 0)
+	    {
+	        changeHealth( -1);
+        }else
+        {
+            this.food += food;
+        }
 	}
 
 	public int getHealth()

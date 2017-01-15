@@ -173,7 +173,11 @@ public class Encounter
 	private void endEncounter()
 	{
 		this.state = State.COMPLETED;
-		buttons[0].dispose();
+
+        if (buttons != null) for (Button button : buttons)
+        {
+            button.dispose();
+        }
 		// InputManager.removeButton(buttons[0]);
 		world.removeActiveEncounter(this);
 	}

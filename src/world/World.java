@@ -46,8 +46,8 @@ public class World
     public World(Player player, int size)
     {
         //new WhirlpoolEncounter(this, 0, 60),
-        encounters = new Encounter[]{new IslandEncounter(this, 0), new PirateEncounter(this, 40, 10, 0),
-                new StormEncounter(this, 0, (int) (player.getSkill() * (Math.random() + 0.5)))};
+        encounters = new Encounter[]{new ShopEncounter(this,AssetLoader.getRandomCityTexture(),"You see a City in the Distance/nand approach it to trade with them.",null),new IslandEncounter(this, 0), new PirateEncounter(this, 40, 10, 0),
+                new WhirlpoolEncounter(this, 0, 60),new StormEncounter(this, 0, (int) (player.getSkill() * (Math.random() + 0.5)))};
         this.player = player;
         wave = 0;
         this.size = size;
@@ -145,7 +145,7 @@ public class World
             // encounter.draw(g);
 
         }
-        System.out.println("Encounters world");
+        //System.out.println("Encounters world");
         for (Encounter encounter : inactiveEncounters)
         {
             if (encounter.texture != null)
@@ -173,7 +173,7 @@ public class World
 
     public void updateAndRender(Graphics g)
     {
-		if (player.getHealth() < 0){
+		if (player.getHealth() < 0 && activeEncounters.size() == 0){
 			new DeathEncounter(this).startEncounter();
 		}
     	
@@ -299,7 +299,7 @@ public class World
 					result.texture.setYShift(shift * 16 - 10);
 					return result;
 				}*/
-                if (encounter instanceof PirateEncounter || encounter instanceof IslandEncounter || encounter instanceof WhirlpoolEncounter || encounter instanceof StormEncounter)
+                if (encounter instanceof PirateEncounter || encounter instanceof IslandEncounter || encounter instanceof WhirlpoolEncounter || encounter instanceof StormEncounter || encounter instanceof ShopEncounter)
                 {
                     Encounter result = new Encounter(this, encounter.texture.clone(), encounter.text,
                             encounter.solutions, 0, worldDistance, encounter.priority, encounter.cooldown);

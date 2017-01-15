@@ -12,7 +12,7 @@ public class ShopEncounter extends Encounter
 
 	public ShopEncounter(World w,Texture texture, String text, Encounter origin)
 	{
-		super(w, texture, text, null, 0, 0, 1, 0);
+		super(w, texture, text, null, 5, 0, 1, 0);
 		solutions =  new Solution[] {new Buy(this), new Sell(this), new Repair(), new LeaveMenu(this,origin)};
 
 		price1 = (int) (Math.random() * 6 + 5);
@@ -25,7 +25,7 @@ public class ShopEncounter extends Encounter
 	}
 	public ShopEncounter(World w, String text, Encounter origin,int[] buy,int[] sell)
 	{
-		super(w, null, text, null, 0, 0, 1, 0);
+		super(w, null, text, null, 0, 0, 1, 220);
 		solutions =  new Solution[] {new Buy(this), new Sell(this), new Repair(), new LeaveMenu(this,origin)};
 
 		price1 = buy[0];
@@ -131,12 +131,15 @@ public class ShopEncounter extends Encounter
 		@Override
 		public String[] resolve(World w)
 		{
-			System.out.println(w.player.getMoney());
-			w.player.changeMoney(-10);
-			System.out.println(w.player.getMoney());
-			System.out.println(w.player.getHealth());
-			w.player.changeHealth(+5);
-			System.out.println(w.player.getHealth());
+			if(w.player.getHealth()< 100 && w.player.getMoney() > 10)
+			{
+				System.out.println(w.player.getMoney());
+				w.player.changeMoney(-10);
+				System.out.println(w.player.getMoney());
+				System.out.println(w.player.getHealth());
+				w.player.changeHealth(+5);
+				System.out.println(w.player.getHealth());
+			}
 			
 			return null;
 		}

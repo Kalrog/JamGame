@@ -9,7 +9,7 @@ public class AssetLoader
 {
     //"Assets/Island.png:131:103",
     public static final String[] ISLAND_TEXTURES = new String[] {"Assets/IslandHuts.png:131:103","Assets/IslandTemple.png:131:103","Assets/IslandTrees.png:131:103"};
-    public static final String[] CITY_TEXTURES = new String[] {};
+    public static final String[] CITY_TEXTURES = new String[] {"Assets/Port.png:121:67"};
     public static final String[] PIRATE_TEXTURES = new String[] {"Assets/PirateShip.png:119:75","Assets/PirateShipCannons.png:119:75"};
     public static final String[] STORM_TEXTURES = new String[] {"Assets/Storm.png:155:134"};
 
@@ -18,12 +18,14 @@ public class AssetLoader
     private static Texture[] pirateTextures;
     private static Texture[] stormTextures;
 
+    public static Texture wirl = new Texture("Assets/Wirl.png" ,111 , 54);
+
     public static Texture wave = new Texture("Assets/Waves.png" ,780 ,29);
 
     public static void loadTextures()
     {
         islandTextures = load(ISLAND_TEXTURES);
-        //load(CITY_TEXTURES,cityTextures);
+        cityTextures = load(CITY_TEXTURES);
         pirateTextures = load(PIRATE_TEXTURES);
         stormTextures = load(STORM_TEXTURES);
     }

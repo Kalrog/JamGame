@@ -10,7 +10,7 @@ public class WhirlpoolEncounter extends Encounter
 
 	public WhirlpoolEncounter(World w, int distance, int strength)
 	{
-		super(w, AssetLoader.getRandomStormTexture(), "", new Solution[] { new Whirlpool(strength) }, 5, distance, 1, 250);
+		super(w, AssetLoader.wirl, "", new Solution[] { new Whirlpool(strength) }, 5, distance, 1, 250);
 		// TODO add textures
 	}
 
