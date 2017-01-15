@@ -27,6 +27,8 @@ public class World
 
     int wave;
 
+    int distanceCounter = 0;
+    
     public Player player;
 
     int size;
@@ -194,7 +196,11 @@ public class World
                 frame = 0;
                 draw(g);
                 player.changeDistance(+1);
+                distanceCounter++;
+                if(distanceCounter >= 200){
                 player.changeFood(-1);
+                distanceCounter = 0;
+                }
                 wave++;
                 wave %= 90;
 
