@@ -7,10 +7,11 @@ package assets;
  */
 public class AssetLoader
 {
-    public static final String[] ISLAND_TEXTURES = new String[] {"Assets/Island.png:131:103","Assets/IslandHuts.png:131:103","Assets/IslandTemple.png:131:103","Assets/IslandTrees.png:131:103"};
+    //"Assets/Island.png:131:103",
+    public static final String[] ISLAND_TEXTURES = new String[] {"Assets/IslandHuts.png:131:103","Assets/IslandTemple.png:131:103","Assets/IslandTrees.png:131:103"};
     public static final String[] CITY_TEXTURES = new String[] {};
     public static final String[] PIRATE_TEXTURES = new String[] {"Assets/PirateShip.png:119:75","Assets/PirateShipCannons.png:119:75"};
-    public static final String[] STORM_TEXTURES = new String[] {};
+    public static final String[] STORM_TEXTURES = new String[] {"Assets/Storm.png::"};
 
     public static Texture[] islandTextures;
     public static Texture[] cityTextures;

@@ -33,7 +33,7 @@ public class Game
 
 	public static final int WIDTH = 640;
 
-	public static final int SEE_LEVEL = 350;
+	public static final int SEE_LEVEL = 318;
 
 	static Encounter encounter;
 

@@ -79,7 +79,7 @@ public class World
 
     }
 
-    class Sprite
+    static class Sprite
     {
         Texture texture;
         int x,y;
@@ -89,7 +89,7 @@ public class World
             this.x = x;
             this.y = y;
         }
-        public Comparator<Sprite> getComparator()
+        public static Comparator<Sprite> getComparator()
         {
             return new Comparator<Sprite>()
             {
@@ -110,8 +110,8 @@ public class World
     {
         sprites = new LinkedList<>();
         g.clearRect(0, 0, Game.WIDTH, Game.HEIGHT);
-        for(int waveNum = 0; waveNum <= 30; waveNum++){
-            sprites.add(new Sprite(AssetLoader.wave,wave + ((waveNum % 6) * 15) % 90 + AssetLoader.wave.width / 2 - 150,180 + waveNum * 12));
+        for(int waveNum = 0; waveNum <= 20; waveNum++){
+            sprites.add(new Sprite(AssetLoader.wave,wave + ((waveNum % 2) * 45) % 90 + AssetLoader.wave.width / 2 - 135,180 + waveNum * 16));
             //AssetLoader.wave.draw(g, wave + ((waveNum % 6) * 15) % 90 + AssetLoader.wave.width / 2 - 150, 180 + waveNum * 12);
         }
         for (Encounter encounter : worldEncounters)
@@ -120,16 +120,25 @@ public class World
             {
                 break;
             }
-            encounter.draw(g);
+            sprites.add(new Sprite(encounter.texture,player.getDistance() - encounter.distance + Game.display.getWidth(),Game.SEE_LEVEL));
+            //g, world.player.getDistance() - distance + Game.display.getWidth(), Game.SEE_LEVEL
+            //encounter.draw(g);
 
         }
         for (Encounter encounter : inactiveEncounters)
         {
             if (!(player.getDistance() - encounter.distance + Display.canvas.getWidth() > -100 && player.getDistance() - encounter.distance + Display.canvas.getWidth() < Display.canvas.getWidth() + 100))
                 inactiveEncounters.remove(encounter);
-            encounter.draw(g);
+            sprites.add(new Sprite(encounter.texture,player.getDistance() - encounter.distance + Game.display.getWidth(),Game.SEE_LEVEL));
+           // encounter.draw(g);
         }
-        player.draw(g);
+        sprites.add(new Sprite(player.texture,Display.canvas.getWidth() - player.texture.width / 2 - 20,Game.SEE_LEVEL));
+        //player.draw(g);
+        Collections.sort(sprites,Sprite.getComparator());
+        for(Sprite sprite : sprites)
+        {
+            sprite.draw(g);
+        }
         if (activeEncounters.size() > 0) activeEncounters.get(activeEncounters.size() - 1).draw(g);
     }
 
@@ -236,22 +245,23 @@ public class World
                 if (encounter instanceof IslandEncounter)
                 {
                     Encounter result = new Encounter(this, encounter.texture.clone(), encounter.text, encounter.solutions, 0, worldDistance, encounter.priority, encounter.cooldown);
-                    int shift = (int) (Math.random() * -220.0 + 100);
+                    int shift = (int) (Math.random() * 12 - 6 );
                     if (shift > 0)
-                        shift += 10;
+                        shift += 1;
                     else
-                        shift -= 10;
-                    result.texture.setYShift(shift);
+                        shift -= 1;
+                    result.texture.setYShift(shift * 16 - 10 );
                     return result;
                 }
                 if (encounter instanceof PirateEncounter)
                 {
                     Encounter result = new Encounter(this, encounter.texture.clone(), encounter.text, encounter.solutions, 0, worldDistance, encounter.priority, encounter.cooldown);
-                    int shift = (int) (Math.random() * -220.0 + 100);
+                    int shift = (int) (Math.random() * 12 - 6 );
                     if (shift > 0)
-                        shift += 10;
-                    else shift -= 10;
-                    result.texture.setYShift(shift);
+                        shift += 1;
+                    else
+                        shift -= 1;
+                    result.texture.setYShift(shift * 16 - 10);
                     return result;
                 }
                 return new Encounter(this, encounter.texture.clone(), encounter.text, encounter.solutions, 0, worldDistance, encounter.priority, encounter.cooldown);

@@ -229,8 +229,10 @@ public class Encounter
 
 	private void mainBoxDraw(Graphics g)
 	{
+        g.setColor(Color.DARK_GRAY);
+        g.fillRoundRect(MAINBOX_X + 5, MAINBOX_Y +5 , MAINBOX_WIDTH, MAINBOX_HEIGHT,15,15);
 		g.setColor(Color.GRAY);
-		g.fillRect(MAINBOX_X, MAINBOX_Y, MAINBOX_WIDTH, MAINBOX_HEIGHT);
+		g.fillRoundRect(MAINBOX_X, MAINBOX_Y, MAINBOX_WIDTH, MAINBOX_HEIGHT,15,15);
 	}
 
 	private TextBox[] fourSmallBoxes(String[] strings)
