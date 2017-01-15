@@ -109,7 +109,7 @@ public class IslandEncounter extends Encounter
 		results[1] = "Moral: -" + moralLoss;
 		w.player.changeMoral(-moralLoss);
 		int untilCured = 6;
-		RemoveCondition removeCondition = new RemoveCondition(w, "Your Crew overcame their illness", untilCured,
+		new RemoveCondition(w, "Your Crew overcame their illness", untilCured,
 				Condition.ILL);
 		results[2] = "Condition: Illness";
 		w.player.addCondition(Condition.ILL);
@@ -172,7 +172,7 @@ public class IslandEncounter extends Encounter
 	{
 		String[] results = new String[3];
 		results[0] = "You find an ancient temple ruin/nand your crew is blessed by it's godly power";
-		RemoveCondition removeCondition = new RemoveCondition(w, "Your blessing wore of", 10, Condition.BLESSED);
+		new RemoveCondition(w, "Your blessing wore of", 10, Condition.BLESSED);
 		if (w.player.conditions.contains(Condition.ILL))
 		{
 			for (Encounter encounter : w.getWorldEncounters())

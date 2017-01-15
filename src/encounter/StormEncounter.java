@@ -7,7 +7,7 @@ import world.World;
 public class StormEncounter extends Encounter
 {
 
-	public StormEncounter(World world, int strength, int distance)
+	public StormEncounter(World world, int distance, int strength)
 	{
 		super(world, AssetLoader.getRandomStormTexture(), "You see a Storm brewing up in the distance",
 				new Solution[] { new AvoidStorm(), new ThroughStorm(strength) }, 20, distance, 1, 5);
@@ -61,7 +61,7 @@ public class StormEncounter extends Encounter
 				results[0] = "You sail through the Strom but your crew didn't take it so well";
 				w.player.addCondition(Condition.SEASICK);
 				int untilCured = 3;
-				RemoveCondition removeCondition = new RemoveCondition(w, "Your Crew overcame their seasickness",
+				new RemoveCondition(w, "Your Crew overcame their seasickness",
 						untilCured, Condition.SEASICK);
 				results[1] = "Condition: Seasickness";
 				int moralLoss = ((int) (Math.random() * 8) + 5);

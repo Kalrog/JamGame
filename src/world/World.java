@@ -19,257 +19,278 @@ import javax.xml.soap.Text;
  */
 public class World
 {
-    private static final int NO_ENCOUNTER_CHANCE = 800;
+	private static final int NO_ENCOUNTER_CHANCE = 800;
 
-    private static final int FRAMES_PER_UPDATE = 2;
+	private static final int FRAMES_PER_UPDATE = 2;
 
-    int frame;
+	int frame;
 
-    int wave;
+	int wave;
 
-    public Player player;
+	public Player player;
 
-    int size;
+	int size;
 
-    Encounter[] encounters;
+	Encounter[] encounters;
 
-    private LinkedList<Encounter> worldEncounters;
+	private LinkedList<Encounter> worldEncounters;
 
-    private LinkedList<Encounter> activeEncounters;
+	private LinkedList<Encounter> activeEncounters;
 
-    private LinkedList<Encounter> inactiveEncounters;
+	private LinkedList<Encounter> inactiveEncounters;
 
-    private LinkedList<Sprite> sprites;
+	private LinkedList<Sprite> sprites;
 
-    public World(Player player, int size)
-    {
+	public World(Player player, int size)
+	{
 
-        encounters = new Encounter[]{new IslandEncounter(this, 0),new PirateEncounter(this, 40 , 10 , 0)};
-        this.player = player;
-        wave = 0;
-        this.size = size;
-        frame = 0;
-        activeEncounters = new LinkedList<>();
-        inactiveEncounters = new LinkedList<>();
-        worldEncounters = new LinkedList<>();
+		encounters = new Encounter[] { new IslandEncounter(this, 0), new PirateEncounter(this, 40, 10, 0),
+				new WhirlpoolEncounter(this, 0, 60),
+				new StormEncounter(this, 0, (int) (player.getSkill() * (Math.random() + 0.5))) };
+		this.player = player;
+		wave = 0;
+		this.size = size;
+		frame = 0;
+		activeEncounters = new LinkedList<>();
+		inactiveEncounters = new LinkedList<>();
+		worldEncounters = new LinkedList<>();
 
-        for (int i = 300; i < size - 300; i++)
-        {
-            int random = (int) (Math.random() * (sumOfEncounterChance(encounters) + NO_ENCOUNTER_CHANCE))
-                    - NO_ENCOUNTER_CHANCE;
-            if (random > 0) worldEncounters.add(encounterFactory(random, i));
-        }
+		for (int i = 300; i < size - 300; i++)
+		{
+			int random = (int) (Math.random() * (sumOfEncounterChance(encounters) + NO_ENCOUNTER_CHANCE))
+					- NO_ENCOUNTER_CHANCE;
+			if (random > 0) worldEncounters.add(encounterFactory(random, i));
+		}
 
-        if (worldEncounters.size() > 1)
-            Collections.sort(worldEncounters, Encounter.getComparator());
+		if (worldEncounters.size() > 1) Collections.sort(worldEncounters, Encounter.getComparator());
 
-        LinkedList<Encounter> removalList = new LinkedList<>();
-        for (Iterator<Encounter> encounters = worldEncounters.iterator(); encounters.hasNext(); )
-        {
-            Encounter encounter = encounters.next();
+		LinkedList<Encounter> removalList = new LinkedList<>();
+		for (Iterator<Encounter> encounters = worldEncounters.iterator(); encounters.hasNext();)
+		{
+			Encounter encounter = encounters.next();
 
-            if (removalList.contains(encounter)) continue;
+			if (removalList.contains(encounter)) continue;
 
-            removalList.addAll(removeCooldownEvents(encounter));
-        }
+			removalList.addAll(removeCooldownEvents(encounter));
+		}
 
-        worldEncounters.removeAll(removalList);
+		worldEncounters.removeAll(removalList);
 
-       //new BuyEncounter(this, "Buy some stuff" , new int[]{10,10,10}).startEncounter();
-        
-        new ShopEncounter(this, "Ay a shop at the Port").startEncounter();
+		// new BuyEncounter(this, "Buy some stuff" , new
+		// int[]{10,10,10}).startEncounter();
 
-    }
+		new ShopEncounter(this, "Ay a shop at the Port").startEncounter();
 
-    static class Sprite
-    {
-        Texture texture;
-        int x,y;
-        public Sprite(Texture texture,int x,int y)
-        {
-            this.texture = texture;
-            this.x = x;
-            this.y = y;
-        }
-        public static Comparator<Sprite> getComparator()
-        {
-            return new Comparator<Sprite>()
-            {
-                @Override
-                public int compare(Sprite sprite, Sprite t1)
-                {
-                    return (sprite.y +  sprite.texture.yShift) - (t1.y + t1.texture.yShift);
-                }
-            };
-        }
-        public void draw(Graphics g)
-        {
-            texture.draw(g,x,y);
-        }
+	}
 
-    }
-    public void draw(Graphics g)
-    {
-        sprites = new LinkedList<>();
-        g.clearRect(0, 0, Game.WIDTH, Game.HEIGHT);
-        for(int waveNum = 0; waveNum <= 20; waveNum++){
-            sprites.add(new Sprite(AssetLoader.wave,wave + ((waveNum % 2) * 45) % 90 + AssetLoader.wave.width / 2 - 135,180 + waveNum * 16));
-            //AssetLoader.wave.draw(g, wave + ((waveNum % 6) * 15) % 90 + AssetLoader.wave.width / 2 - 150, 180 + waveNum * 12);
-        }
-        for (Encounter encounter : worldEncounters)
-        {
-            if (!(player.getDistance() - encounter.distance + Display.canvas.getWidth() > -100 && player.getDistance() - encounter.distance + Display.canvas.getWidth() < Display.canvas.getWidth() + 100))
-            {
-                break;
-            }
-            sprites.add(new Sprite(encounter.texture,player.getDistance() - encounter.distance + Game.display.getWidth(),Game.SEE_LEVEL));
-            //g, world.player.getDistance() - distance + Game.display.getWidth(), Game.SEE_LEVEL
-            //encounter.draw(g);
+	static class Sprite
+	{
+		Texture texture;
 
-        }
-        for (Encounter encounter : inactiveEncounters)
-        {
-            if (!(player.getDistance() - encounter.distance + Display.canvas.getWidth() > -100 && player.getDistance() - encounter.distance + Display.canvas.getWidth() < Display.canvas.getWidth() + 100))
-                inactiveEncounters.remove(encounter);
-            sprites.add(new Sprite(encounter.texture,player.getDistance() - encounter.distance + Game.display.getWidth(),Game.SEE_LEVEL));
-           // encounter.draw(g);
-        }
-        sprites.add(new Sprite(player.texture,Display.canvas.getWidth() - player.texture.width / 2 - 20,Game.SEE_LEVEL));
-        //player.draw(g);
-        Collections.sort(sprites,Sprite.getComparator());
-        for(Sprite sprite : sprites)
-        {
-            sprite.draw(g);
-        }
-        if (activeEncounters.size() > 0) activeEncounters.get(activeEncounters.size() - 1).draw(g);
-    }
+		int x, y;
 
-    public void updateAndRender(Graphics g)
-    {
-        if (activeEncounters.size() == 0)
-        {
+		public Sprite(Texture texture, int x, int y)
+		{
+			this.texture = texture;
+			this.x = x;
+			this.y = y;
+		}
 
-            frame++;
+		public static Comparator<Sprite> getComparator()
+		{
+			return new Comparator<Sprite>()
+			{
+				@Override
+				public int compare(Sprite sprite, Sprite t1)
+				{
+					return (sprite.y + sprite.texture.yShift) - (t1.y + t1.texture.yShift);
+				}
+			};
+		}
 
-            if (worldEncounters.size() > 0 && worldEncounters.getFirst().distance == player.getDistance() + (player.texture.width + 10))
-            {
-                worldEncounters.getFirst().startEncounter();
-                inactiveEncounters.add(worldEncounters.getFirst());
-                worldEncounters.removeFirst();
-            }
+		public void draw(Graphics g)
+		{
+			texture.draw(g, x, y);
+		}
 
-            if (frame > FRAMES_PER_UPDATE)
-            {
-                frame = 0;
-                draw(g);
-                player.changeDistance(+1);
-                player.changeFood(-1);
-                wave++;
-                wave %=90;
+	}
 
-            }
-        }else{
-            draw(g);
-        }
-    }
+	public void draw(Graphics g)
+	{
+		sprites = new LinkedList<>();
+		g.clearRect(0, 0, Game.WIDTH, Game.HEIGHT);
+		for (int waveNum = 0; waveNum <= 20; waveNum++)
+		{
+			sprites.add(new Sprite(AssetLoader.wave,
+					wave + ((waveNum % 2) * 45) % 90 + AssetLoader.wave.width / 2 - 135, 180 + waveNum * 16));
+			// AssetLoader.wave.draw(g, wave + ((waveNum % 6) * 15) % 90 +
+			// AssetLoader.wave.width / 2 - 150, 180 + waveNum * 12);
+		}
+		for (Encounter encounter : worldEncounters)
+		{
+			if (!(player.getDistance() - encounter.distance + Display.canvas.getWidth() > -100 && player.getDistance()
+					- encounter.distance + Display.canvas.getWidth() < Display.canvas.getWidth() + 100))
+			{
+				break;
+			}
+			sprites.add(new Sprite(encounter.texture,
+					player.getDistance() - encounter.distance + Game.display.getWidth(), Game.SEE_LEVEL));
+			// g, world.player.getDistance() - distance +
+			// Game.display.getWidth(), Game.SEE_LEVEL
+			// encounter.draw(g);
 
-    public void addActiveEncounter(Encounter encounter)
-    {
-        activeEncounters.add(encounter);
-    }
+		}
+		for (Encounter encounter : inactiveEncounters)
+		{
+			if (!(player.getDistance() - encounter.distance + Display.canvas.getWidth() > -100 && player.getDistance()
+					- encounter.distance + Display.canvas.getWidth() < Display.canvas.getWidth() + 100))
+				inactiveEncounters.remove(encounter);
+			sprites.add(new Sprite(encounter.texture,
+					player.getDistance() - encounter.distance + Game.display.getWidth(), Game.SEE_LEVEL));
+			// encounter.draw(g);
+		}
+		sprites.add(
+				new Sprite(player.texture, Display.canvas.getWidth() - player.texture.width / 2 - 20, Game.SEE_LEVEL));
+		// player.draw(g);
+		Collections.sort(sprites, Sprite.getComparator());
+		for (Sprite sprite : sprites)
+		{
+			sprite.draw(g);
+		}
+		if (activeEncounters.size() > 0) activeEncounters.get(activeEncounters.size() - 1).draw(g);
+	}
 
-    public void removeActiveEncounter(Encounter encounter)
-    {
-        activeEncounters.remove(encounter);
-    }
+	public void updateAndRender(Graphics g)
+	{
+		if (activeEncounters.size() == 0)
+		{
 
-    public void addWorldEncounter(Encounter encounter)
-    {
-        worldEncounters.add(encounter);
-        Collections.sort(worldEncounters, Encounter.getComparator());
-        removeCooldownEvents(encounter);
-    }
+			frame++;
 
-    public void removeWorldEncounter(Encounter encounter)
-    {
-        worldEncounters.remove(encounter);
-    }
+			if (worldEncounters.size() > 0
+					&& worldEncounters.getFirst().distance == player.getDistance() + (player.texture.width + 10))
+			{
+				worldEncounters.getFirst().startEncounter();
+				inactiveEncounters.add(worldEncounters.getFirst());
+				worldEncounters.removeFirst();
+			}
 
-    public LinkedList<Encounter> getWorldEncounters()
-    {
-        return worldEncounters;
-    }
+			if (frame > FRAMES_PER_UPDATE)
+			{
+				frame = 0;
+				draw(g);
+				player.changeDistance(+1);
+				player.changeFood(-1);
+				wave++;
+				wave %= 90;
 
-    public int sumOfEncounterChance(Encounter[] encounters)
-    {
-        int total = 0;
+			}
+		} else
+		{
+			draw(g);
+		}
+	}
 
-        for (Encounter encounter : encounters)
-        {
-            total += encounter.chance;
-        }
+	public void addActiveEncounter(Encounter encounter)
+	{
+		activeEncounters.add(encounter);
+	}
 
-        return total;
-    }
+	public void removeActiveEncounter(Encounter encounter)
+	{
+		activeEncounters.remove(encounter);
+	}
 
-    private ArrayList<Encounter> removeCooldownEvents(Encounter encounter)
-    {
-        ArrayList<Encounter> removalList = new ArrayList<>();
-        for (Encounter encounter1 : worldEncounters)
-        {
+	public void addWorldEncounter(Encounter encounter)
+	{
+		worldEncounters.add(encounter);
+		Collections.sort(worldEncounters, Encounter.getComparator());
+		removeCooldownEvents(encounter);
+	}
 
-            if (encounter.equals(encounter1) && encounter == encounter1 && encounter.distance == encounter1.distance)
-            {
-                continue;
-            }
+	public void removeWorldEncounter(Encounter encounter)
+	{
+		worldEncounters.remove(encounter);
+	}
 
-            if (encounter.distance <= encounter1.distance
-                    && encounter.distance + encounter.cooldown >= encounter1.distance
-                    && encounter1.priority <= encounter.priority)
-            {
-                removalList.add(encounter1);
-                //worldEncounters.remove(encounter1);
-            } else if (encounter1.distance > encounter.distance + encounter.cooldown)
-            {
-                break;
-            }
-        }
-        return removalList;
-    }
+	public LinkedList<Encounter> getWorldEncounters()
+	{
+		return worldEncounters;
+	}
 
-    private Encounter encounterFactory(int listPosition, int worldDistance)
-    {
-        for (Encounter encounter : encounters)
-        {
-            listPosition -= encounter.chance;
-            if (listPosition <= 0)
-            {
-                if (encounter instanceof IslandEncounter)
-                {
-                    Encounter result = new Encounter(this, encounter.texture.clone(), encounter.text, encounter.solutions, 0, worldDistance, encounter.priority, encounter.cooldown);
-                    int shift = (int) (Math.random() * 12 - 6 );
-                    if (shift > 0)
-                        shift += 1;
-                    else
-                        shift -= 1;
-                    result.texture.setYShift(shift * 16 - 10 );
-                    return result;
-                }
-                if (encounter instanceof PirateEncounter)
-                {
-                    Encounter result = new Encounter(this, encounter.texture.clone(), encounter.text, encounter.solutions, 0, worldDistance, encounter.priority, encounter.cooldown);
-                    int shift = (int) (Math.random() * 12 - 6 );
-                    if (shift > 0)
-                        shift += 1;
-                    else
-                        shift -= 1;
-                    result.texture.setYShift(shift * 16 - 10);
-                    return result;
-                }
-                return new Encounter(this, encounter.texture.clone(), encounter.text, encounter.solutions, 0, worldDistance, encounter.priority, encounter.cooldown);
-            }
-        }
-        return null;
-    }
+	public int sumOfEncounterChance(Encounter[] encounters)
+	{
+		int total = 0;
+
+		for (Encounter encounter : encounters)
+		{
+			total += encounter.chance;
+		}
+
+		return total;
+	}
+
+	private ArrayList<Encounter> removeCooldownEvents(Encounter encounter)
+	{
+		ArrayList<Encounter> removalList = new ArrayList<>();
+		for (Encounter encounter1 : worldEncounters)
+		{
+
+			if (encounter.equals(encounter1) && encounter == encounter1 && encounter.distance == encounter1.distance)
+			{
+				continue;
+			}
+
+			if (encounter.distance <= encounter1.distance
+					&& encounter.distance + encounter.cooldown >= encounter1.distance
+					&& encounter1.priority <= encounter.priority)
+			{
+				removalList.add(encounter1);
+				// worldEncounters.remove(encounter1);
+			} else if (encounter1.distance > encounter.distance + encounter.cooldown)
+			{
+				break;
+			}
+		}
+		return removalList;
+	}
+
+	private Encounter encounterFactory(int listPosition, int worldDistance)
+	{
+		for (Encounter encounter : encounters)
+		{
+			listPosition -= encounter.chance;
+			if (listPosition <= 0)
+			{
+				if (encounter instanceof IslandEncounter)
+				{
+					Encounter result = new Encounter(this, encounter.texture.clone(), encounter.text,
+							encounter.solutions, 0, worldDistance, encounter.priority, encounter.cooldown);
+					int shift = (int) (Math.random() * 12 - 6);
+					if (shift > 0)
+						shift += 1;
+					else
+						shift -= 1;
+					result.texture.setYShift(shift * 16 - 10);
+					return result;
+				}
+				if (encounter instanceof PirateEncounter)
+				{
+					Encounter result = new Encounter(this, encounter.texture.clone(), encounter.text,
+							encounter.solutions, 0, worldDistance, encounter.priority, encounter.cooldown);
+					int shift = (int) (Math.random() * 12 - 6);
+					if (shift > 0)
+						shift += 1;
+					else
+						shift -= 1;
+					result.texture.setYShift(shift * 16 - 10);
+					return result;
+				}
+				return new Encounter(this, encounter.texture.clone(), encounter.text, encounter.solutions, 0,
+						worldDistance, encounter.priority, encounter.cooldown);
+			}
+		}
+		return null;
+	}
 
 }
