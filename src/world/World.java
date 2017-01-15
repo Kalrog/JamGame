@@ -76,6 +76,8 @@ public class World
         worldEncounters.removeAll(removalList);
 
        //new BuyEncounter(this, "Buy some stuff" , new int[]{10,10,10}).startEncounter();
+        
+        new ShopEncounter(this, "Ay a shop at the Port").startEncounter();
 
     }
 

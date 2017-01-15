@@ -50,7 +50,7 @@ public class Button
 		for (int x = 0; x < textlines.length; x++)
 		{
 			g.drawString(textlines[x], rect.x + 10, (int) (rect.y + (rect.getHeight()
-					- (textlines.length * g.getFontMetrics().getHeight() + (textlines.length - 1) * NEXT_LINE) / 2.0)));
+					- (textlines.length * g.getFontMetrics().getHeight() + (textlines.length - 1) * NEXT_LINE) / 2)));
 
 		}
 	}

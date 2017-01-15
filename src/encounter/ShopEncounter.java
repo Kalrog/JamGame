@@ -77,9 +77,12 @@ public class ShopEncounter extends Encounter
 		@Override
 		public String[] resolve(World w)
 		{
-
+			System.out.println(w.player.getMoney());
 			w.player.changeMoney(-10);
+			System.out.println(w.player.getMoney());
+			System.out.println(w.player.getHealth());
 			w.player.changeHealth(+5);
+			System.out.println(w.player.getHealth());
 			
 			return null;
 		}
