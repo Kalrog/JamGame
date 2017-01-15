@@ -16,7 +16,7 @@ public class BuyEncounter extends Encounter
         solutions = new Solution[]{new BuySolution(this,prices[0], Player.ResourceType.FOOD), new BuySolution(this , prices[1], Player.ResourceType.RAW), new BuySolution(this,prices[2], Player.ResourceType.LUXARY)};
     }
 
-    static class BuySolution implements Solution
+	static class BuySolution implements Solution
     {
         Player.ResourceType resourceType;
         int price;
