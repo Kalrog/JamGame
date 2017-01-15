@@ -9,17 +9,19 @@ import java.util.LinkedList;
 import assets.AssetLoader;
 import encounter.Encounter;
 import encounter.IslandEncounter;
+import encounter.PirateEncounter;
 import game.Display;
 import game.Game;
 import player.Player;
 import player.Player.Condition;
+import sun.awt.image.ImageWatched;
 
 /**
  * Created by jonathan on 13.01.17.
  */
 public class World
 {
-    private static final int NO_ENCOUNTER_CHANCE = 500;
+    private static final int NO_ENCOUNTER_CHANCE = 800;
 
     private static final int FRAMES_PER_UPDATE = 2;
 
@@ -42,7 +44,7 @@ public class World
     public World(Player player, int size)
     {
 
-        encounters = new Encounter[]{new IslandEncounter(this, 0)};
+        encounters = new Encounter[]{new IslandEncounter(this, 0),new PirateEncounter(this, 40 , 10 , 0)};
         this.player = player;
         wave = 0;
         this.size = size;
@@ -151,6 +153,11 @@ public class World
         worldEncounters.remove(encounter);
     }
 
+    public LinkedList<Encounter> getWorldEncounters()
+    {
+        return worldEncounters;
+    }
+
     public int sumOfEncounterChance(Encounter[] encounters)
     {
         int total = 0;
@@ -196,6 +203,12 @@ public class World
             if (listPosition <= 0)
             {
                 if (encounter instanceof IslandEncounter)
+                {
+                    Encounter result = new Encounter(this, encounter.texture.clone(), encounter.text, encounter.solutions, 0, worldDistance, encounter.priority, encounter.cooldown);
+                    result.texture.setYShift((int) (Math.random() * -130.0 ));
+                    return result;
+                }
+                if (encounter instanceof PirateEncounter)
                 {
                     Encounter result = new Encounter(this, encounter.texture.clone(), encounter.text, encounter.solutions, 0, worldDistance, encounter.priority, encounter.cooldown);
                     result.texture.setYShift((int) (Math.random() * -130.0 ));
