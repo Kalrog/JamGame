@@ -1,6 +1,8 @@
 package encounter;
 
 import assets.Texture;
+import encounter.BuyEncounter.InMenuButton;
+import game.ButtonCall;
 import world.World;
 
 public class ShopEncounter extends Encounter
@@ -90,9 +92,31 @@ public class ShopEncounter extends Encounter
 		@Override
 		public String getText()
 		{	
-			return "Repair: -" + 10 + "$/n+" + "Health: +" + 5;
+			return "Repair: -" + 10 + "$/n" + "Health: +" + 5;
 		}
 
 	}
+	
+    @Override
+    protected ButtonCall getSolutionButton(Solution solution)
+    {
+        return new InMenuButton(solution);
+    }
+
+    class InMenuButton implements ButtonCall
+    {
+        private Solution solution;
+
+        public InMenuButton(Solution solution)
+        {
+            this.solution = solution;
+        }
+
+        @Override
+        public void call()
+        {
+            solution.resolve(world);
+        }
+    }
 
 }

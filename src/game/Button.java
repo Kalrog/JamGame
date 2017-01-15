@@ -49,8 +49,11 @@ public class Button
 		textlines = text.split("/n");
 		for (int x = 0; x < textlines.length; x++)
 		{
-			g.drawString(textlines[x], rect.x + 10, (int) (rect.y + x * NEXT_LINE +(rect.getHeight()
-					- (textlines.length * g.getFontMetrics().getHeight() + (textlines.length - 1) * NEXT_LINE) / 2)));
+			g.drawString(textlines[x], rect.x + 10, rect.y - NEXT_LINE - g.getFontMetrics().getHeight() / 2
+					+ (x == 0 ? 0 : x * g.getFontMetrics().getHeight())
+					+ (int) (rect.getHeight()
+							- (textlines.length * g.getFontMetrics().getHeight() + (textlines.length - 1) * NEXT_LINE)
+									/ 2));
 
 		}
 	}
