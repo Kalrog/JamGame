@@ -192,11 +192,11 @@ public class Player
         switch (resourceType)
         {
             case RAW:
-                return "Raw Material ";
+                return "Raw Material";
             case LUXARY:
-                return "Luxary Good ";
+                return "Luxary Good";
             case FOOD:
-                return "Food ";
+                return "Food";
         }
         return "";
     }

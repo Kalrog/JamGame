@@ -7,12 +7,12 @@ import world.World;
 
 public class ShopEncounter extends Encounter
 {
-
 	static int price1, price2, price3, sell1, sell2, sell3;
 
-	public ShopEncounter(World w, String text)
+	public ShopEncounter(World w, String text, Encounter origin)
 	{
-		super(w, null, text, new Solution[] {new Buy(), new Sell(), new Repair()}, 0, 0, 1, 0);
+		super(w, null, text, null, 0, 0, 1, 0);
+		solutions =  new Solution[] {new Buy(this), new Sell(this), new Repair(), new LeaveMenu(this,origin)};
 
 		price1 = (int) (Math.random() * 6 + 5);
 		price2 = (int) (Math.random() * 9 + 6);
@@ -32,13 +32,46 @@ public class ShopEncounter extends Encounter
 		return price;
 	}
 
-	static class Buy implements Solution
-	{
+	static class LeaveMenu implements Solution{
+		Encounter encounter;
+		Encounter origin;
+
+		public LeaveMenu(Encounter encounter , Encounter origin)
+		{
+			this.encounter = encounter;
+			this.origin = origin;
+		}
 
 		@Override
 		public String[] resolve(World w)
 		{
-			new BuyEncounter(w, "What do you whish to buy?", new int[] { price1, price2, price3 }).startEncounter();
+			encounter.showResult(null);
+
+			if(origin != null)
+				origin.startEncounter();
+			return null;
+		}
+
+		@Override
+		public String getText()
+		{
+			return "Set Sail";
+		}
+	}
+
+	static class Buy implements Solution
+	{
+
+		Encounter encounter;
+		public Buy(Encounter encounter)
+		{
+			this.encounter = encounter;
+		}
+		@Override
+		public String[] resolve(World w)
+		{
+			encounter.showResult(null);
+			new BuyEncounter(w, "What do you wish to buy?/nMoney: " + w.player.getMoney() + " $", new int[] { price1, price2, price3 },encounter).startEncounter();
 
 			return null;
 		}
@@ -54,12 +87,16 @@ public class ShopEncounter extends Encounter
 
 	static class Sell implements Solution
 	{
-
+		Encounter encounter;
+		public Sell(Encounter encounter)
+		{
+			this.encounter = encounter;
+		}
 		@Override
 		public String[] resolve(World w)
 		{
-
-			new SellEncounter(w, "What do you whish to sell?", new int[] { sell1, sell2, sell3 }).startEncounter();
+			encounter.showResult(null);
+			new SellEncounter(w, "What do you whish to sell?", new int[] { sell1, sell2, sell3 } ,encounter).startEncounter();
 
 			return null;
 		}

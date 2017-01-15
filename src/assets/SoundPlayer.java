@@ -12,7 +12,7 @@ import javax.sound.sampled.*;
 public class SoundPlayer
 {
 
-	public static void playSound(String path) throws Exception
+	public static void playSound(String path , int vol) throws Exception
 	{
 		AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(path));
         DataLine.Info info = new DataLine.Info(Clip.class, audioInputStream.getFormat());
@@ -20,7 +20,7 @@ public class SoundPlayer
         Clip clip = (Clip)AudioSystem.getLine(info);
 		clip.open(audioInputStream);
         FloatControl volume  = (FloatControl) clip.getControl(FloatControl.Type.VOLUME);
-        volume.setValue(10000);
+        volume.setValue(vol);
         clip.start();
 		/*InputStream in = new FileInputStream(path);
 		AudioStream audio = new AudioStream(in);
