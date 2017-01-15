@@ -63,7 +63,7 @@ public class Encounter
 
 	private enum State
 	{
-		STARTED, RESULT, INACTIVE , COMPLETED
+		STARTED, RESULT, INACTIVE, COMPLETED
 	}
 
 	class SolutionButton implements ButtonCall
@@ -94,7 +94,8 @@ public class Encounter
 
 	}
 
-	public Encounter(World world, Texture texture, String text, Solution[] solutions , int chance , int distance , int priority , int cooldown)
+	public Encounter(World world, Texture texture, String text, Solution[] solutions, int chance, int distance,
+			int priority, int cooldown)
 	{
 		this.world = world;
 		this.texture = texture;
@@ -134,10 +135,10 @@ public class Encounter
 
 	}
 
-	private void showResult(String[] results)
+	protected void showResult(String[] results)
 	{
 
-		for (Button button : buttons)
+		if (buttons != null) for (Button button : buttons)
 		{
 			button.dispose();
 		}
@@ -215,11 +216,11 @@ public class Encounter
 
 			}
 
-            case COMPLETED:
+			case COMPLETED:
 			case INACTIVE:
 			{
-				if(texture != null)
-			        texture.draw(g,world.player.getDistance() - distance + Game.display.getWidth(), Game.SEE_LEVEL);
+				if (texture != null)
+					texture.draw(g, world.player.getDistance() - distance + Game.display.getWidth(), Game.SEE_LEVEL);
 				break;
 			}
 
@@ -359,23 +360,22 @@ public class Encounter
 		return buttons;
 	}
 
-	public static Comparator<Encounter> getComparator(){
-	    return new Comparator<Encounter>()
-        {
-            @Override
-            public int compare(Encounter encounter, Encounter t1)
-            {
-                int diff = encounter.distance - t1.distance;
+	public static Comparator<Encounter> getComparator()
+	{
+		return new Comparator<Encounter>()
+		{
+			@Override
+			public int compare(Encounter encounter, Encounter t1)
+			{
+				int diff = encounter.distance - t1.distance;
 
-                if(diff == 0)
-                {
-                    if (encounter.priority > t1.priority)
-                        return -1;
-                    return 1;
-                }
-                else
-                    return diff;
-            }
-        };
-    }
+				if (diff == 0)
+				{
+					if (encounter.priority > t1.priority) return -1;
+					return 1;
+				} else
+					return diff;
+			}
+		};
+	}
 }
