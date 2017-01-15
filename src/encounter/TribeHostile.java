@@ -1,15 +1,15 @@
 
 package encounter;
 
-import assets.Texture;
 import world.World;
 
 public class TribeHostile extends Encounter
 {
 
-	public TribeHostile(World w)
+	public TribeHostile(World w, int strength)
 	{
-		super(w, null, "However the tribe seems Hostile", new Solution[] {}, 0, 0, 1, 0);
+		super(w, null, "However the tribe seems Hostile",
+				new Solution[] { new AvoidConflict(strength), new AttackTribe(strength) }, 0, 0, 1, 0);
 
 	}
 

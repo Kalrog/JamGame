@@ -33,7 +33,7 @@ public class IslandEncounter extends Encounter
 		@Override
 		public String[] resolve(World w)
 		{
-			int randome = 5;// ThreadLocalRandom.current().nextInt(0, 3);
+			int randome = 2;// ThreadLocalRandom.current().nextInt(0, 3);
 
 			switch (randome)
 			{
@@ -132,16 +132,22 @@ public class IslandEncounter extends Encounter
 
 	private static String[] tribe()
 	{
+		Encounter encounter;
 
 		if (Math.random() >= 0.5)
 		{
-			new TribeHostile(w).startEncounter();
+			encounter = new TribeFriendly(w);
 		} else
 		{
-			new TribeFriendly(w).startEncounter();
+			encounter = new TribeHostile(w, (int) (w.player.totalCrewAbility() * (Math.random() + 0.5)));
 		}
 
-		return new String[] { "You see a native Tribe living on the Island" };
+		encounter.startEncounter();
+
+		new ContinueEncounter(w, new String[] { "You see a native Tribe living on the Island" }).startEncounter();
+
+		return null;
+
 	}
 
 	private static String[] volcano()
@@ -169,7 +175,7 @@ public class IslandEncounter extends Encounter
 		RemoveCondition removeCondition = new RemoveCondition(w, "Your blessing wore of", 10, Condition.BLESSED);
 		if (w.player.conditions.contains(Condition.ILL))
 		{
-			w.getActiveEncounters();
+			// w.getActiveEncounters();
 			w.player.removeCondition(Condition.ILL);
 		}
 
