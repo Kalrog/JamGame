@@ -33,6 +33,7 @@ public class Display extends JFrame {
         canvas.createBufferStrategy(2);
         pack();
         setIgnoreRepaint(true);
+        canvas.setBackground(new Color(135,206,235));
 
     }
 

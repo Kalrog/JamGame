@@ -12,10 +12,10 @@ import world.World;
 public class PirateEncounter extends Encounter
 {
 
-	public PirateEncounter(World world, int strength, int distance)
+	public PirateEncounter(World world, int strength, int chance ,int distance)
 	{
 		super(world, AssetLoader.getRandomPirateTexture(), "You encounter a pirate ship",
-				new Solution[] { new FightSolution(strength), new RunSolution(strength) }, 20, distance, 1, 5);
+				new Solution[] { new FightSolution(strength), new RunSolution(strength) }, chance, distance, 1, 200);
 
 	}
 

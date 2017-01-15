@@ -169,11 +169,26 @@ public class IslandEncounter extends Encounter
 		RemoveCondition removeCondition = new RemoveCondition(w, "Your blessing wore of", 10, Condition.BLESSED);
 		if (w.player.conditions.contains(Condition.ILL))
 		{
-			w.getActiveEncounters();
+			for(Encounter encounter : w.getWorldEncounters())
+			{
+				if(encounter instanceof RemoveCondition && ((RemoveCondition) encounter).getCondition() == Condition.ILL)
+				{
+					w.removeWorldEncounter(encounter);
+					break;
+				}
+			}
 			w.player.removeCondition(Condition.ILL);
 		}
 
 		if (w.player.conditions.contains(Condition.SEASICK)) w.player.removeCondition(Condition.SEASICK);
+		for(Encounter encounter : w.getWorldEncounters())
+		{
+			if(encounter instanceof RemoveCondition && ((RemoveCondition) encounter).getCondition() == Condition.SEASICK)
+			{
+				w.removeWorldEncounter(encounter);
+				break;
+			}
+		}
 		w.player.addCondition(Condition.BLESSED);
 		results[1] = "Condition: Blessed";
 		int moralGain = (int) (Math.random() * 5 + 7);

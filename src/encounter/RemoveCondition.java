@@ -12,6 +12,7 @@ public class RemoveCondition extends Encounter
 	{
 		super(w,null, text, new Solution[] {}, 0, w.player.getDistance() + distance, 20, 0);
 		this.condition = condition;
+		w.addWorldEncounter(this);
 	}
 
 	static class RemoveEffect implements Solution
@@ -32,4 +33,8 @@ public class RemoveCondition extends Encounter
 
 	}
 
+	public static Condition getCondition()
+	{
+		return condition;
+	}
 }
