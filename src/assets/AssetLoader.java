@@ -13,10 +13,10 @@ public class AssetLoader
     public static final String[] PIRATE_TEXTURES = new String[] {"Assets/PirateShip.png:119:75","Assets/PirateShipCannons.png:119:75"};
     public static final String[] STORM_TEXTURES = new String[] {"Assets/Storm.png:155:134"};
 
-    public static Texture[] islandTextures;
-    public static Texture[] cityTextures;
-    public static Texture[] pirateTextures;
-    public static Texture[] stormTextures;
+    private static Texture[] islandTextures;
+    private static Texture[] cityTextures;
+    private static Texture[] pirateTextures;
+    private static Texture[] stormTextures;
 
     public static Texture wave = new Texture("Assets/Waves.png" ,780 ,29);
 
@@ -25,7 +25,7 @@ public class AssetLoader
         islandTextures = load(ISLAND_TEXTURES);
         //load(CITY_TEXTURES,cityTextures);
         pirateTextures = load(PIRATE_TEXTURES);
-        //load(STORM_TEXTURES,stormTextures);
+        stormTextures = load(STORM_TEXTURES);
     }
 
     private static Texture[] load(String[] texData)

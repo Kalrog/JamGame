@@ -14,7 +14,7 @@ public class Texture
 
     BufferedImage image;
 
-    public int width, height, yShift;
+    public int width, height, yShift = 0;
 
     public Texture(BufferedImage image, int width, int height)
     {

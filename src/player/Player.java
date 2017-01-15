@@ -41,10 +41,10 @@ public class Player
     public Player(String name)
     {
 
-        health = 100;
-        moral = 100;
-        money = 100;
-        skill = 100;
+        health = 10;
+        moral = 10;
+        money = 10;
+        skill = 10;
         distance = 0;
         food = 20;// <==filler :: not clear what units to use yet
         this.name = name;

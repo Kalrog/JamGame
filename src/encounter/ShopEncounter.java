@@ -1,5 +1,6 @@
 package encounter;
 
+import assets.AssetLoader;
 import assets.Texture;
 import encounter.BuyEncounter.InMenuButton;
 import game.ButtonCall;
@@ -9,9 +10,9 @@ public class ShopEncounter extends Encounter
 {
 	static int price1, price2, price3, sell1, sell2, sell3;
 
-	public ShopEncounter(World w, String text, Encounter origin)
+	public ShopEncounter(World w,Texture texture, String text, Encounter origin)
 	{
-		super(w, null, text, null, 0, 0, 1, 0);
+		super(w, texture, text, null, 0, 0, 1, 0);
 		solutions =  new Solution[] {new Buy(this), new Sell(this), new Repair(), new LeaveMenu(this,origin)};
 
 		price1 = (int) (Math.random() * 6 + 5);
@@ -20,6 +21,19 @@ public class ShopEncounter extends Encounter
 		sell1 = setSellPrice(price1, 5, 4);
 		sell2 = setSellPrice(price2, 8, 5);
 		sell3 = setSellPrice(price3, 91, 15);
+
+	}
+	public ShopEncounter(World w, String text, Encounter origin,int[] buy,int[] sell)
+	{
+		super(w, null, text, null, 0, 0, 1, 0);
+		solutions =  new Solution[] {new Buy(this), new Sell(this), new Repair(), new LeaveMenu(this,origin)};
+
+		price1 = buy[0];
+		price2 = buy[1];
+		price3 = buy[2];
+		sell1 = sell[0];
+		sell2 = sell[1];
+		sell3 = sell[2];
 
 	}
 
@@ -49,6 +63,7 @@ public class ShopEncounter extends Encounter
 
 			if(origin != null)
 				origin.startEncounter();
+
 			return null;
 		}
 

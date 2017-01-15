@@ -10,9 +10,8 @@ public class RemoveCondition extends Encounter
 	
 	public RemoveCondition(World w, String text, int distance, Condition condition)
 	{
-		super(w,null, text, new Solution[] {}, 0, w.player.getDistance() + distance, 20, 0);
+		super(w,null, text, new Solution[] {new RemoveEffect()}, 0, distance, 20, -1);
 		this.condition = condition;
-		w.addWorldEncounter(this);
 	}
 
 	static class RemoveEffect implements Solution

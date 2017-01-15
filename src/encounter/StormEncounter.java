@@ -10,7 +10,7 @@ public class StormEncounter extends Encounter
 	public StormEncounter(World world, int distance, int strength)
 	{
 		super(world, AssetLoader.getRandomStormTexture(), "You see a Storm brewing up in the distance",
-				new Solution[] { new AvoidStorm(), new ThroughStorm(strength) }, 20, distance, 1, 5);
+				new Solution[] { new AvoidStorm(), new ThroughStorm(strength) }, 10, distance, 1, 200);
 	}
 
 	static class AvoidStorm implements Solution
@@ -60,9 +60,10 @@ public class StormEncounter extends Encounter
 				results = new String[3];
 				results[0] = "You sail through the Strom but your crew didn't take it so well";
 				w.player.addCondition(Condition.SEASICK);
-				int untilCured = 3;
-				new RemoveCondition(w, "Your Crew overcame their seasickness",
-						untilCured, Condition.SEASICK);
+				int dist = w.player.getDistance() + 300;
+				RemoveCondition remove = new RemoveCondition(w, "Your Crew overcame their seasickness",
+						dist, Condition.SEASICK);
+				w.addWorldEncounter(remove);
 				results[1] = "Condition: Seasickness";
 				int moralLoss = ((int) (Math.random() * 8) + 5);
 				results[2] = "Moral: -" + moralLoss;

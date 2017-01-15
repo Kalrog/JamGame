@@ -59,9 +59,9 @@ public class Encounter
 
 	public int cooldown;
 
-	private State state;
+	protected State state;
 
-	private enum State
+	protected enum State
 	{
 		STARTED, RESULT, INACTIVE, COMPLETED
 	}
