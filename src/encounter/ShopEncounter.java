@@ -10,14 +10,14 @@ public class ShopEncounter extends Encounter
 
 	public ShopEncounter(World w, String text)
 	{
-		super(w, null, text, new Solution[] {}, 0, 0, 1, 0);
+		super(w, null, text, new Solution[] {new Buy(), new Sell(), new Repair()}, 0, 0, 1, 0);
 
 		price1 = (int) (Math.random() * 6 + 5);
 		price2 = (int) (Math.random() * 9 + 6);
 		price3 = (int) (Math.random() * 101 + 20);
 		sell1 = setSellPrice(price1, 5, 4);
-		sell2 = setSellPrice(price1, 8, 5);
-		sell3 = setSellPrice(price1, 91, 15);
+		sell2 = setSellPrice(price2, 8, 5);
+		sell3 = setSellPrice(price3, 91, 15);
 
 	}
 
